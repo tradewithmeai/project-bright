@@ -1,0 +1,517 @@
+{
+  "pack_id": "ce98b95e-88cf-47be-9782-ec3186aeb4a6",
+  "generated_at": "2026-07-05T15:55:28.509Z",
+  "seed_url": "https://solvx.uk",
+  "promotion_run_id": "ab09beb9-f81f-4f44-af48-cf376dc33711",
+  "identity": {
+    "primary_name": {
+      "value": "solvX",
+      "finding_id": "fc5c5e5f-8dd0-4728-b356-62f067d97493",
+      "state": "usable",
+      "confidence": "high",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "verified",
+      "reason_code": "json-ld-authority",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "json-ld"
+        }
+      ]
+    },
+    "legal_name": null,
+    "alternate_names": [],
+    "note": null
+  },
+  "marks": {
+    "primary_mark": {
+      "value": "https://solvx.uk/solvx-logo.png",
+      "finding_id": "245e7350-d572-4e22-b6cb-e2580135b2ac",
+      "state": "usable",
+      "confidence": "high",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "verified",
+      "reason_code": "json-ld-authority",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "json-ld"
+        }
+      ],
+      "file_extension": "png",
+      "is_svg": false,
+      "is_third_party": false,
+      "source_authority": "json-ld-logo"
+    },
+    "supporting_marks": []
+  },
+  "colours": {
+    "classified_tokens": [],
+    "captured_vocabulary": [
+      {
+        "value": "#000a1a",
+        "finding_id": "12d541bd-e069-4f72-baf0-8fb677d904e7",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "#000a1a",
+        "variable_name": "--bg",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#00bfff",
+        "finding_id": "66140153-448f-4798-b21e-9468940d96c7",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "#00bfff",
+        "variable_name": "--accent",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#00ff88",
+        "finding_id": "3ac91b82-8256-479f-ae1c-0f82d7fa57e9",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "#00ff88",
+        "variable_name": "--green",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#0a0a0a",
+        "finding_id": "59795185-3188-4bb3-9554-720ca6ed8f4c",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "computed-style"
+          }
+        ],
+        "raw_value": "rgba(10, 10, 10, 0.6)",
+        "variable_name": null,
+        "source_element": "nav_background_color",
+        "source_type": "computed-style"
+      },
+      {
+        "value": "#0f2337",
+        "finding_id": "38531c05-0f1c-4da7-a365-47997863551e",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "rgba(15, 35, 55, .95)",
+        "variable_name": "--card-level1-bg",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#14283c",
+        "finding_id": "b70412c3-20b5-4893-ba8d-f30ee9b0bec1",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "rgba(20, 40, 60, .95)",
+        "variable_name": "--card-level2-bg",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#192d41",
+        "finding_id": "b9585ac6-5b54-42a3-8323-4906e5f9f98e",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "rgba(25, 45, 65, .95)",
+        "variable_name": "--card-level3-bg",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#2c2c2c",
+        "finding_id": "5f1c6452-6cb8-4f57-9a5c-a7a3aa6182bb",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "rgba(44,44,44,.2)",
+        "variable_name": "--secondary",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      },
+      {
+        "value": "#f1f1f1",
+        "finding_id": "eed1982c-ac04-497e-920a-ce8fa38aac6f",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "css-custom-property"
+          }
+        ],
+        "raw_value": "#f1f1f1",
+        "variable_name": "--text",
+        "source_element": null,
+        "source_type": "css-custom-property"
+      }
+    ],
+    "role_assignment_note": "Colour role assignment (primary/accent/background) has not been performed. Variable names are preserved as hints only. Downstream consumers must assign roles."
+  },
+  "typography": {
+    "confirmed_fonts": [],
+    "observed_fonts": [
+      {
+        "value": "Satoshi, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+        "finding_id": "09c9833e-3e7a-4e2c-b073-ae69f32c233c",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "computed-style"
+          }
+        ],
+        "source_type": "computed-style",
+        "element_context": "body"
+      }
+    ]
+  },
+  "claims": {
+    "taglines": [],
+    "supporting_claims": [
+      {
+        "value": "Agentic engineering and AI systems practice. Orchestrated AI workflows, structured engineering, automation, and rapid prototyping for real-world systems.",
+        "finding_id": "8de3584b-d425-4a7f-af9c-6080ca57eec8",
+        "state": "captured",
+        "confidence": "medium",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "inferred",
+        "reason_code": "verbatim-claim-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "json-ld"
+          }
+        ],
+        "source_field": "Organization.description",
+        "contains_statistic": false
+      },
+      {
+        "value": "solvX builds AI systems, automates workflows, and creates editable websites for UK small businesses. Accounting from £20. Book a free 15-min call.",
+        "finding_id": "1b0f1df2-ff1d-4dc1-bd73-77a9b0200884",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "meta-tag"
+          }
+        ],
+        "source_field": "meta:description",
+        "contains_statistic": false
+      },
+      {
+        "value": "solvX builds AI-native systems using orchestrated agent workflows, structured engineering, and human oversight. Real systems. Real methodology. Real outcomes.",
+        "finding_id": "0a47b76a-36d9-46a6-906e-75a743f2ba78",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "meta-tag"
+          }
+        ],
+        "source_field": "og:description",
+        "contains_statistic": false
+      },
+      {
+        "value": "Practical AI for Micro Businesses",
+        "finding_id": "e5ae3ada-b194-4bfc-af48-f53fbe23eab9",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "html-text"
+          }
+        ],
+        "source_field": "h1",
+        "contains_statistic": false
+      },
+      {
+        "value": "We set up AI automations, local AI assistants, and custom tools for sole traders and small teams. Most of what we share is free — and so is the first call.",
+        "finding_id": "9e76500a-36f7-4852-a06c-538883060523",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "html-text"
+          }
+        ],
+        "source_field": "h2",
+        "contains_statistic": false
+      },
+      {
+        "value": "Scoped services. Real results.",
+        "finding_id": "a0bc30c0-9d88-48d2-8b0c-41a0aa276dc0",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "html-text"
+          }
+        ],
+        "source_field": "h2",
+        "contains_statistic": false
+      },
+      {
+        "value": "Tools you can try right now",
+        "finding_id": "301856b6-7862-46aa-9036-6dff62567a27",
+        "state": "captured",
+        "confidence": "low",
+        "evidence_depth": "single-source",
+        "verification_ceiling": "unchecked",
+        "reason_code": "captured-single-source",
+        "sources": [
+          {
+            "page_url": "https://solvx.uk/",
+            "page_role": "homepage",
+            "extraction_method": "html-text"
+          }
+        ],
+        "source_field": "h2",
+        "contains_statistic": false
+      }
+    ]
+  },
+  "legal": {
+    "findings": [],
+    "coverage_gap": "No legal candidates were extracted — legal page may not have been captured or content was blocked"
+  },
+  "assets": [
+    {
+      "value": "https://solvx.uk/",
+      "finding_id": "e346ea2d-550b-4d33-9782-a8220a94f08b",
+      "state": "captured",
+      "confidence": "low",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "unchecked",
+      "reason_code": "captured-single-source",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "network-asset"
+        }
+      ],
+      "resource_type": "document",
+      "provisional_type": "document"
+    },
+    {
+      "value": "https://solvx.uk/screenshot-yourgov-map.png",
+      "finding_id": "45b2ebf8-2676-458e-8dd1-f1deb2f898da",
+      "state": "classified",
+      "confidence": "medium",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "inferred",
+      "reason_code": "captured-single-source",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "network-asset"
+        }
+      ],
+      "resource_type": "image",
+      "provisional_type": "hero"
+    },
+    {
+      "value": "https://solvx.uk/screenshot-ai-news.png",
+      "finding_id": "9c2c0766-29b2-4f98-8f1c-5ecf46dc948d",
+      "state": "captured",
+      "confidence": "low",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "unchecked",
+      "reason_code": "captured-single-source",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "network-asset"
+        }
+      ],
+      "resource_type": "image",
+      "provisional_type": "unknown"
+    },
+    {
+      "value": "https://solvx.uk/screenshot-mandelson.png",
+      "finding_id": "47821792-ac03-4a7c-9e92-e9fb60dcf6ef",
+      "state": "captured",
+      "confidence": "low",
+      "evidence_depth": "single-source",
+      "verification_ceiling": "unchecked",
+      "reason_code": "captured-single-source",
+      "sources": [
+        {
+          "page_url": "https://solvx.uk/",
+          "page_role": "homepage",
+          "extraction_method": "network-asset"
+        }
+      ],
+      "resource_type": "image",
+      "provisional_type": "unknown"
+    }
+  ],
+  "motion": {
+    "tokens": [],
+    "experimental_note": "Motion tokens are experimental findings — captured but not classified. Do not treat as confirmed brand design tokens without further verification."
+  },
+  "gaps": [
+    {
+      "category": "entity",
+      "gap_type": "unresolved",
+      "description": "2 entity candidate(s) unresolved — require corroboration with JSON-LD source.",
+      "unresolved_count": 2
+    },
+    {
+      "category": "mark",
+      "gap_type": "unresolved",
+      "description": "1 mark candidate(s) unresolved — require higher-authority source (JSON-LD) or cross-page corroboration.",
+      "unresolved_count": 1
+    },
+    {
+      "category": "legal",
+      "gap_type": "absent",
+      "description": "No legal findings promoted — legal page was not captured, gated, or content was blocked."
+    }
+  ],
+  "limitations": [
+    {
+      "source": "page-role-inference",
+      "severity": "warning",
+      "description": "Page roles were inferred from URL patterns, not confirmed CrawlPlan labels. Legal findings are capped at 'inferred' verification ceiling as a result."
+    }
+  ],
+  "pack_metadata": {
+    "total_promoted_findings": 27,
+    "by_category": {
+      "entity": 1,
+      "mark": 1,
+      "asset": 4,
+      "colour": 13,
+      "typography": 1,
+      "claim": 7,
+      "legal": 0,
+      "motion": 0
+    },
+    "unique_colour_count": 9,
+    "blocked_count": 0,
+    "unresolved_count": 3,
+    "page_role_inferred": true,
+    "incomplete_source_pages": 0,
+    "inline_svg_pages": []
+  }
+}

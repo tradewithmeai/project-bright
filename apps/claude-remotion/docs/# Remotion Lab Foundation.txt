@@ -1,0 +1,424 @@
+# Remotion Lab Foundation
+
+## zzz297 — Purpose
+
+Remotion Lab exists to research and develop structured AI-assisted video composition systems for short-form social content.
+
+The goal is not fully autonomous AI video generation.
+
+The goal is to discover repeatable scene systems that:
+
+* look visually strong,
+* work with limited creator assets,
+* can be partially directed by AI,
+* and can later integrate with Susan’s campaign planning pipeline.
+
+Remotion is currently treated as:
+
+* the rendering engine,
+* the composition framework,
+* and the experimentation platform.
+
+The lab focuses on:
+
+* structure,
+* layering,
+* motion systems,
+* pacing,
+* reusable templates,
+* and scene grammar.
+
+---
+
+# zzz298 — Core Philosophy
+
+The system should not attempt to generate arbitrary cinematic videos.
+
+Instead, it should:
+
+1. define reusable visual structures,
+2. fill them with available assets,
+3. apply motion and layout logic,
+4. and produce coherent social-media-ready videos.
+
+The important distinction:
+
+Bad approach:
+
+```text
+Prompt → magical AI video
+```
+
+Desired approach:
+
+```text
+Structured campaign idea
+→ scene specification
+→ reusable composition system
+→ rendered output
+```
+
+The system should favour:
+
+* repeatability,
+* consistency,
+* modularity,
+* and controlled experimentation.
+
+---
+
+# zzz299 — Relationship to Susan
+
+Susan is the campaign planning layer.
+
+Remotion Lab is the visual execution research layer.
+
+Susan should eventually output:
+
+* campaign direction,
+* platform strategy,
+* hooks,
+* media requirements,
+* storyboard intent,
+* and scene specifications.
+
+Remotion Lab should interpret these into:
+
+* compositions,
+* scene timing,
+* transitions,
+* overlays,
+* and rendered media.
+
+Susan should not directly control low-level animation behaviour.
+
+The long-term bridge between the systems will likely be:
+
+```text
+scene_spec.json
+```
+
+---
+
+# zzz300 — Initial Scope
+
+The lab currently targets:
+
+* YouTube Shorts,
+* Bluesky promotional clips,
+* developer content,
+* gameplay showcases,
+* AI-assisted devlogs,
+* and technical/social hybrid content.
+
+The current priority is:
+
+```text
+Short-form vertical video.
+```
+
+Not:
+
+* films,
+* long-form editing,
+* or cinematic production.
+
+---
+
+# zzz301 — Asset Assumptions
+
+The system assumes creators often have:
+
+* gameplay clips,
+* screenshots,
+* terminal recordings,
+* UI captures,
+* logos,
+* code snippets,
+* debug footage,
+* bug footage,
+* rough recordings,
+* and incomplete assets.
+
+The system should therefore favour:
+
+* authenticity,
+* proof,
+* movement,
+* and layered composition.
+
+Not:
+
+* polished studio production.
+
+The lab assumes:
+
+```text
+limited but rich assets
+```
+
+---
+
+# zzz302 — Scene System Philosophy
+
+The lab is built around reusable scene systems.
+
+A scene system contains:
+
+* layout logic,
+* layer definitions,
+* animation rules,
+* timing defaults,
+* transition behaviour,
+* and visual emphasis rules.
+
+The scene system should be reusable across many projects.
+
+The AI should fill the system intelligently rather than inventing entirely new structures each time.
+
+---
+
+# zzz303 — Layers
+
+Layering is a foundational concept.
+
+A single scene may contain:
+
+* background video,
+* cropped video fragments,
+* masked regions,
+* overlays,
+* text panels,
+* foreground clips,
+* animated shapes,
+* captions,
+* transitions,
+* and CTA elements.
+
+Professional-looking output is expected to come primarily from:
+
+```text
+layer interaction
+```
+
+rather than raw footage quality.
+
+---
+
+# zzz304 — Motion Philosophy
+
+Motion should:
+
+* support emphasis,
+* guide attention,
+* increase perceived polish,
+* and reinforce pacing.
+
+Motion should not:
+
+* exist purely for spectacle,
+* overwhelm readability,
+* or create visual chaos.
+
+Preferred motion characteristics:
+
+* smooth,
+* intentional,
+* readable,
+* directional,
+* and reusable.
+
+---
+
+# zzz305 — Video-In-Video Principle
+
+Video clips should be treated as compositional elements.
+
+A clip may appear:
+
+* inside shapes,
+* behind overlays,
+* inside panels,
+* as inset content,
+* or as layered foreground material.
+
+The system should support:
+
+* masking,
+* scaling,
+* crop animation,
+* timed reveals,
+* blur treatment,
+* and focus transitions.
+
+This is considered a core visual capability.
+
+---
+
+# zzz306 — Initial Template Research Targets
+
+The first objective is not breadth.
+
+The first objective is:
+
+```text
+3 visually strong reusable templates
+```
+
+Initial targets:
+
+## 1. Triangle Split Promo
+
+* fullscreen video background,
+* central triangle text panel,
+* mirrored/cropped side video regions,
+* layered captions,
+* CTA ending.
+
+## 2. Devlog Breakdown
+
+* gameplay or UI footage,
+* floating code/terminal panels,
+* animated technical callouts,
+* progress indicators,
+* structured explanations.
+
+## 3. Chaos Reel
+
+* fast cuts,
+* bug highlights,
+* aggressive emphasis,
+* humour framing,
+* motion-heavy pacing,
+* strong CTA close.
+
+---
+
+# zzz307 — Standardisation Priorities
+
+The following should be standardised early:
+
+* fonts,
+* caption behaviour,
+* colour systems,
+* transition timing,
+* easing curves,
+* spacing systems,
+* CTA structure,
+* motion density,
+* and layout conventions.
+
+Without standardisation:
+
+```text
+template quality will collapse into inconsistency
+```
+
+---
+
+# zzz308 — Experimentation Structure
+
+Every experiment should preserve:
+
+* input assets,
+* scene specs,
+* render outputs,
+* notes,
+* and observations.
+
+Suggested structure:
+
+```text
+experiments/
+  experiment_name/
+    experiment.md
+    scene_spec.json
+    render.mp4
+    notes.md
+```
+
+The goal is to create:
+
+```text
+institutional memory
+```
+
+for visual systems.
+
+---
+
+# zzz309 — Scene Specification Direction
+
+Long-term output should move toward structured scene specifications.
+
+Example direction:
+
+```json
+{
+  "template": "triangle_split_promo",
+  "duration": 18,
+  "style": "technical_chaos",
+  "scenes": [...]
+}
+```
+
+The scene spec should eventually describe:
+
+* timing,
+* intent,
+* emphasis,
+* asset mapping,
+* motion density,
+* and CTA logic.
+
+Not raw animation code.
+
+---
+
+# zzz310 — Research Goals
+
+The lab is attempting to answer:
+
+* What layouts create perceived production quality?
+* What motion systems increase clarity?
+* What scene structures improve engagement?
+* What reusable systems work across multiple projects?
+* What can AI reliably direct?
+* What should remain template-controlled?
+* What pacing works best for short-form technical content?
+
+---
+
+# zzz311 — Near-Term Priorities
+
+Immediate priorities:
+
+1. Stabilise Remotion workflow.
+2. Build 3 reusable templates.
+3. Test same content across different templates.
+4. Improve visual layering systems.
+5. Refine timing and pacing.
+6. Establish reusable CTA systems.
+7. Define initial scene_spec structure.
+8. Feed findings back into Susan’s storyboard generation.
+
+---
+
+# zzz312 — Long-Term Direction
+
+Long-term direction may evolve toward:
+
+```text
+AI-assisted structured media production systems
+```
+
+rather than generic AI content generation.
+
+The likely strength of the system is:
+
+* repeatable structure,
+* intelligent composition,
+* multi-platform campaign planning,
+* and rapid iteration.
+
+Not raw generative novelty.

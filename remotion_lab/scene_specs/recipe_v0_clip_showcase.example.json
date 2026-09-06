@@ -1,0 +1,102 @@
+{
+  "_comment": "Canonical v0 recipe example: short hackathon clip showcase for Instagram Reels.",
+  "_comment2": "Validated by: python3 -m pytest apps/chatty-susan/tests/test_recipe_validator.py -v",
+  "_comment3": "User request: 'I have a clip of my hackathon project. Make it a polished social video with a quick intro, captions, branding, and an outro.'",
+
+  "recipe_version": "v0",
+  "recipe_id": "clip-showcase-v0",
+  "request_summary": "Hackathon progress clip with branding, captions, and CTA for Instagram Reels",
+  "platform": "instagram_reels",
+  "duration_target_s": 25,
+  "duration_min_s": 20,
+  "duration_max_s": 35,
+
+  "meta": {
+    "brand_name": "Project Bright",
+    "brand_color": "#6C47FF",
+    "handle": "@projectbright"
+  },
+
+  "palette": {
+    "primary": "#6C47FF",
+    "accent": "#FF6C47",
+    "background": "#0D0D0D",
+    "text": "#F5F5F5"
+  },
+
+  "energy": "upbeat",
+  "caption_style": "lower_third",
+  "transition_style": "cut",
+
+  "sections": [
+    {
+      "section_id": "branded_intro",
+      "section_type": "branded_intro",
+      "intent": "Establish brand identity and set an energetic tone before the demo begins",
+      "duration_s": 2,
+      "asset": {
+        "type": "generated_still",
+        "path": null,
+        "label": "Brand identity frame — logo on primary palette"
+      },
+      "text_beats": [
+        { "beat": "Two weeks. One idea.", "timing": "start" }
+      ],
+      "visual_treatment": "Primary palette background with animated logo reveal and accent pulse",
+      "animation_direction": "fade-in from centre",
+      "remotion_hint": "logo animates in with scale 0.5→1 over 20f; brand name in bold white above logo; accent colour underline grows left→right 15–30f; no distracting background motion",
+      "review_required": true
+    },
+    {
+      "section_id": "hero_clip",
+      "section_type": "hero_video_clip",
+      "intent": "Show the hackathon demo in full — this is the core evidence the viewer came for",
+      "duration_s": 18,
+      "asset": {
+        "type": "uploaded_video",
+        "path": "hackathon-demo.mp4",
+        "label": "Main hackathon progress clip"
+      },
+      "text_beats": [
+        { "beat": "Built in 48 hours.", "timing": "start" },
+        { "beat": "Here's what it does.", "timing": "mid" }
+      ],
+      "visual_treatment": "Full-width clip fill with lower-third overlays; dark text bar at bottom for caption beats; accent colour text",
+      "animation_direction": "none — clip plays at full pace",
+      "remotion_hint": "OffthreadVideo fills AbsoluteFill; lower-third bar fades in at beat timing; caption text in accent colour on semi-transparent dark bar (0.75 opacity); bar slides up from bottom on appear",
+      "review_required": true
+    },
+    {
+      "section_id": "result_card",
+      "section_type": "progress_card",
+      "intent": "Land the achievement — what was built, key metrics, and how far it got",
+      "duration_s": 3,
+      "text_beats": [
+        { "beat": "Working prototype. First users. Shipped.", "timing": "start" }
+      ],
+      "visual_treatment": "Dark background with centred bold text; accent highlight on key words; subtle upward drift animation",
+      "animation_direction": "slide-up",
+      "review_required": false
+    },
+    {
+      "section_id": "cta_close",
+      "section_type": "cta_card",
+      "intent": "Drive the viewer to follow the account and check out the project",
+      "duration_s": 3,
+      "text_beats": [
+        { "beat": "Follow for more.", "timing": "start" },
+        { "beat": "@projectbright", "timing": "end" }
+      ],
+      "visual_treatment": "Full-screen primary palette background; handle in large white text; accent button-style border pulse on handle",
+      "animation_direction": "fade-in",
+      "review_required": false
+    }
+  ],
+
+  "render_constraints": {
+    "no_css_animation": true,
+    "no_external_fonts": true,
+    "no_external_urls": true,
+    "pixel_format": "yuv420p"
+  }
+}

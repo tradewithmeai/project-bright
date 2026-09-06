@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "run_after_utc": "07:00",
+  "gate_warn_policy": "abort_on_stale_proceed_on_cosmetic",
+  "cost_note": "~$0.04 provider/run",
+  "_help": "STAGE 1 kill-switch. Nothing fires unattended while enabled=false. Flip enabled to true ONLY when you (the owner) are ready to let the daily AI Top 5 auto-produce-to-queue. It STOPS at POST_QUEUE pending_review and NEVER publishes. gate_warn_policy governs check-ai-news.mjs exit 2 (WARN): abort_on_stale_proceed_on_cosmetic = abort if the feed is stale/old-dated, proceed on cosmetic over-cap warnings."
+}

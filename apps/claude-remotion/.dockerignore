@@ -1,0 +1,18 @@
+# Node deps — reinstalled inside container
+node_modules/
+
+# Render outputs — stored in Docker volume at runtime
+exports/
+out/
+
+# Remotion Studio dev artefacts
+remotion_lab/scene_specs/
+
+# Logs and local state
+*.log
+rw.log
+.env
+
+# Git and editor
+.git/
+.claude/settings.local.json

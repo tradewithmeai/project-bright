@@ -1,0 +1,31 @@
+{
+  "template": "triangle_split_promo",
+  "format": "vertical_short",
+  "duration_seconds": 20,
+  "style": "technical_chaos",
+  "assets": {
+    "primary_video": "public/bang-bop-cars-20sec-start-game.mp4",
+    "logo": "",
+    "audio": ""
+  },
+  "text": {
+    "hook": "Code that ships.",
+    "middle": "A structured AI video production system for developer content.",
+    "proof": "// remotion lab · experiment 001",
+    "cta": "Build with us."
+  },
+  "timing": {
+    "intro_seconds": 3,
+    "middle_seconds": 14,
+    "outro_seconds": 3
+  },
+  "visual": {
+    "accent_color": "#00d4ff",
+    "panel_opacity": 0.88,
+    "background_style": "real_footage"
+  },
+  "notes": [
+    "Experiment 001: first render uses gradient fallback — no footage available",
+    "Using default props from composition definition"
+  ]
+}

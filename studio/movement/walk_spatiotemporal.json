@@ -1,0 +1,352 @@
+{
+ "movement": "walk",
+ "sheet": "spatiotemporal + event-phase joint angles",
+ "version": "0.5",
+ "built": "2026-07-26",
+ "revised": "2026-07-27",
+ "revision_note": "v0.2 adds PHASE-RESOLVED swing curves. v0.1 gave only endpoint values, so a monotonic interpolation between them drove the swing foot 45.8 mm through the floor (measured by PB in derive_gait.py). The endpoints were right; the SHAPE between them was missing, and the shape is where clearance lives. See swing_phase_resolution.",
+ "purpose": "Replace the hardcoded guesses in gait.py (DUTY, LIFT, REACH_MAX, crouch, strike, toe-off) with sourced normative values. This is the FIRST sheet of the movement database - deliberately narrow: phase structure and event angles only. Full 101-point trajectories come later from AddBiomechanics.",
+
+ "scaling_law": {
+  "rule": "EVERY value carries a `scaling` field. This is L07 and it is non-negotiable.",
+  "dimensionless": "transfers directly to any character, never scaled - phase %, fractions, ratios",
+  "leg_length": "scales by LEG LENGTH, never by stature - step/stride length, clearance, pelvis rise",
+  "none": "angles NEVER scale, ever",
+  "why": "A 1.74 m character with robot proportions has a different leg-length-to-stature ratio than a human. Scaling stride by stature is wrong there; scaling by leg length is right."
+ },
+
+ "conditions": {
+  "speed": "normal / self-selected, level ground",
+  "note": "SPEED IS THE DOMINANT VARIABLE. Stance fraction rises as speed falls; joint ranges scale with speed. These values are for self-selected normal walking and must NOT be applied unchanged to slow or fast gait."
+ },
+
+ "phase_structure": {
+  "_comment": "All dimensionless - percentages of one full gait cycle (heel strike to ipsilateral heel strike).",
+  "stance_pct": {
+   "value": 60.0, "range": [60.0, 62.0], "scaling": "dimensionless",
+   "population": "healthy adults, normal self-selected speed",
+   "source": "https://now.aapmr.org/biomechanics-normal-gait/",
+   "confidence": "high",
+   "note": "REPLACES PB's guessed DUTY 0.62. 0.60 is the standard normative figure; 0.62 sits at the top of the range. Speed-dependent - increases at slower speeds."
+  },
+  "swing_pct": {
+   "value": 40.0, "scaling": "dimensionless",
+   "source": "https://now.aapmr.org/biomechanics-normal-gait/", "confidence": "high",
+   "note": "complement of stance"
+  },
+  "double_support_each_pct": {
+   "value": 10.0, "range": [10.0, 12.0], "scaling": "dimensionless",
+   "source": "https://now.aapmr.org/biomechanics-normal-gait/", "confidence": "high",
+   "note": "TWO double-support periods per cycle. Total double support ~20-24% of the cycle."
+  },
+  "single_limb_support_pct": {
+   "value": 40.0, "scaling": "dimensionless",
+   "source": "https://now.aapmr.org/biomechanics-normal-gait/", "confidence": "high",
+   "note": "equals the contralateral swing phase, as it must"
+  }
+ },
+
+ "events_pct_of_cycle": {
+  "_comment": "The gait-cycle landmarks a driven animation keys against. Dimensionless.",
+  "heel_strike": {"value": 0.0, "scaling": "dimensionless", "confidence": "high"},
+  "opposite_toe_off": {"value": 10.0, "range": [10.0, 12.0], "scaling": "dimensionless",
+                       "confidence": "high", "note": "end of first double support"},
+  "opposite_heel_strike": {"value": 50.0, "scaling": "dimensionless", "confidence": "high",
+                           "note": "start of second double support; exactly antiphase in symmetric gait"},
+  "toe_off": {"value": 60.0, "range": [60.0, 62.0], "scaling": "dimensionless",
+              "confidence": "high", "note": "= stance_pct; stance ends here"},
+  "feet_adjacent": {"value": 73.0, "scaling": "dimensionless", "confidence": "medium",
+                    "note": "mid-swing landmark; less consistently reported"},
+  "tibia_vertical": {"value": 87.0, "scaling": "dimensionless", "confidence": "medium"}
+ },
+
+ "joint_angles_at_events_deg": {
+  "_comment": "scaling: none - angles NEVER scale. Sign conventions must be checked against the rig's own axes before use (see L01/L03/L09 warnings).",
+  "hip_flexion": {
+   "at_initial_contact": 20.0,
+   "at_terminal_stance": -20.0,
+   "at_toe_off": 0.0,
+   "scaling": "none",
+   "source": "https://compedgept.com/blog/gait-analysis-the-8-phases-of-gait/",
+   "confidence": "medium",
+   "note": "negative = extension. Hip swings from 20 deg flexion at contact to 20 deg extension at terminal stance, passing through neutral at toe-off."
+  },
+  "knee_flexion": {
+   "at_initial_contact": 0.0,
+   "loading_response_peak": 17.5, "loading_response_range": [15.0, 20.0],
+   "at_heel_off": 0.0,
+   "at_toe_off": 40.0,
+   "peak_midswing": 70.0,
+   "scaling": "none",
+   "source": "https://podiapaedia.org/wiki/biomechanics/gait/angular-kinematics-of-gait/",
+   "confidence": "medium",
+   "note": "The double-bump knee pattern: near-extended at contact, small loading-response flexion (15-20 deg), re-extends by heel-off, then the large swing flexion peaking ~70 deg."
+  },
+  "ankle_dorsiflexion": {
+   "at_initial_contact": 0.0,
+   "at_toe_off": -25.0,
+   "total_rom_walking": "MOVED to validation_outputs in v0.4 - see stance_phase_resolution.the_derivation_error. This is an AGGREGATE and must NEVER be used to derive a control point. Deriving peak dorsiflexion from it produced +5 deg and made the skeleton toe-walk through all of stance.",
+   "stance_shape": "See stance_phase_resolution.ankle_dorsiflexion_stance_deg - endpoints alone are NOT sufficient.",
+   "scaling": "none",
+   "source": "https://podiapaedia.org/wiki/biomechanics/gait/angular-kinematics-of-gait/",
+   "confidence": "medium",
+   "note": "negative = plantarflexion. Neutral (90 deg shank-foot) at heel contact; rapid plantarflexion to foot-flat; max dorsiflexion at heel-off; 25 deg PLANTARflexion at toe-off; rapid dorsiflexion in early swing for clearance. REPLACES PB's guessed strike 10 / toe-off 20."
+  }
+ },
+
+ "swing_phase_resolution": {
+  "_comment": "ADDED v0.2. The clearance fix. Endpoint values alone are NOT sufficient to drive swing - interpolating monotonically between toe-off and initial contact produces a foot that never clears. These are the intermediate control points. scaling: none (all angles).",
+
+  "why_this_block_exists": {
+   "measured_failure": "derive_gait.py, driven from v0.1 endpoints only, produced minimum toe clearance of -45.8 mm (foot 46 mm BELOW the floor).",
+   "primary_cause": "ANKLE, not hip. v0.1 gave ankle -25 deg at toe-off (60%) and 0 deg at contact (100%). Interpolated monotonically, the ankle sits near -12 to -15 deg at 75-85% - which is exactly when minimum toe clearance occurs. A toe ~0.19 m forward of the ankle joint, plantarflexed 15 deg, hangs 0.19*sin(15) = 49 mm low. The measured deficit is 45.8 mm. That is the whole error, and it is one missing control point.",
+   "real_ankle_behaviour": "Plantarflexion at toe-off is followed by RAPID dorsiflexion in EARLY swing, reaching neutral well before mid-swing, and holding neutral through the clearance window. It is not a slow ramp to contact. This is precisely why foot drop (loss of swing dorsiflexion) causes tripping and steppage gait.",
+   "secondary_cause": "Hip. v0.1 implied a straight run to 20 deg at contact; the real profile reaches ~10 deg by 75% and ~20 deg by 87%, then holds. Worth roughly 8 deg at the clearance window - a real contributor, but second order behind the ankle.",
+   "what_LIFT_0.09_was": "A 90 mm manual lift propping up angles that could not clear. Deleting it did not break the walk - it revealed the walk was already broken. Do NOT reinstate it in any form; clearance is an OUTPUT of the angles."
+  },
+
+  "ankle_dorsiflexion_swing_deg": {
+   "at_toe_off_60pct": -25.0,
+   "early_swing_70pct": -5.0,
+   "mid_swing_75_85pct": 0.0,
+   "terminal_swing_to_contact": 0.0,
+   "scaling": "none",
+   "source": "https://www.kenhub.com/en/library/anatomy/gait-cycle",
+   "confidence": "medium",
+   "note": "THE clearance mechanism. Neutral by mid-swing and held. Interpolate toe-off -> early swing STEEPLY; do not spread the recovery across the whole swing."
+  },
+
+  "knee_flexion_swing_deg": {
+   "peak_value": 65.0, "peak_range": [60.0, 70.0],
+   "peak_at_pct_of_cycle": 73.0,
+   "then": "extends progressively to ~0-5 deg at initial contact",
+   "scaling": "none",
+   "source": "https://compedgept.com/blog/gait-analysis-the-8-phases-of-gait/",
+   "confidence": "medium",
+   "note": "PHASE MATTERS. Peak is at ~73% - the initial-swing/mid-swing boundary, defined as the point of maximal knee flexion - NOT at 80-85%. Placing the peak late keeps the shank folded through the clearance window and then snaps it out, which is wrong in both directions."
+  },
+
+  "hip_flexion_swing_deg": {
+   "at_toe_off_60pct": 0.0,
+   "initial_swing_end_75pct": 10.0,
+   "mid_swing_end_87pct": 20.0,
+   "terminal_swing_87_100pct": 20.0,
+   "scaling": "none",
+   "source": "https://now.aapmr.org/biomechanics-normal-gait/",
+   "confidence": "medium",
+   "note": "Neutral -> 10 deg over initial swing, 10 -> 20 deg over mid-swing, then HOLDS ~20 deg through terminal swing rather than continuing to climb. There is no 30 deg terminal-swing peak in this source; do not invent one to buy clearance the ankle should be providing."
+  },
+
+  "interpolation_rule": "PCHIP (shape-preserving), never natural cubic. A natural spline overshoots and will invent a knee angle beyond the sourced 65-70 deg peak, or an ankle beyond the sourced -25 deg. Confirmed correct in derive_gait.py."
+ },
+
+ "stance_phase_resolution": {
+  "_comment": "ADDED v0.4. Fixes the toe-walk: heel lifting at ~10% and never returning to the floor, found by the toe/heel height plot. Same failure as swing in v0.1 - endpoints given, SHAPE missing - but in stance the consequence is worse because the floor is supposed to be constraining the foot.",
+
+  "the_derivation_error": {
+   "what_happened": "Peak stance dorsiflexion was computed ARITHMETICALLY as total_rom_walking (30) + at_toe_off (-25) = +5 deg. With only 5 deg of dorsiflexion the shank cannot rotate forward over a flat foot, so the heel must lift. Hence toe-walking through the whole of stance.",
+   "which_of_the_three_was_wrong": "NONE OF THEM. The DERIVATION was wrong. total_rom_walking is an AGGREGATE summary, and its 30 was the midpoint of a stated range [20, 40]. Consuming a range's midpoint as if it were a measurement silently over-constrained the system.",
+   "the_rule": "AGGREGATES VALIDATE; THEY DO NOT DRIVE. Deriving a control point from a summary statistic is the same class of error as reading two separate defects off an aggregate min(). Both collapse information that the thing being computed actually needs.",
+   "resolution": "Peak stance dorsiflexion is now SOURCED DIRECTLY at +10 deg. That implies a total excursion of 10 + 25 = 35 deg, which sits comfortably inside the sheet's own stated [20, 40] range - so there was never a contradiction to resolve.",
+   "action_taken": "total_rom_walking DEMOTED from joint_angles_at_events_deg to validation_outputs. It must never again be an input."
+  },
+
+  "ankle_dorsiflexion_stance_deg": {
+   "_comment": "The three rockers. This is the shape the floor requires.",
+   "at_initial_contact_0pct": 0.0,
+   "foot_flat_7_10pct": -5.0,
+   "mid_stance_30pct": 5.0,
+   "peak_dorsiflexion": 10.0,
+   "peak_at_pct_of_cycle": 40.0,
+   "at_toe_off_60pct": -25.0,
+   "scaling": "none",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4994968/",
+   "peak_df_source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11296718/",
+   "confidence": "medium",
+   "note": "HEEL ROCKER (0-10%): slight plantarflexion pivoting on the calcaneus, dorsiflexors contracting ECCENTRICALLY to lower the forefoot - the foot is being let down, not driven down. ANKLE ROCKER (10-40%): progressive dorsiflexion as the shank rotates forward over a FLAT foot; heel stays on the floor throughout. FOREFOOT ROCKER (40-60%): heel rises, rapid plantarflexion to -25 deg at toe-off. The +10 deg peak is the literature threshold - it is described as the MINIMUM required for normal gait, and insufficient dorsiflexion is a recognised functional limitation. 5 deg is pathological, which is exactly what the render showed."
+  },
+
+  "expected_heel_behaviour": {
+   "flat_on_floor_from_pct": 10.0,
+   "flat_on_floor_until_pct": 40.0,
+   "note": "Heel height should PLATEAU near zero across 10-40%, not climb. A monotonically rising heel through stance is the signature of insufficient dorsiflexion. This is now a testable assertion."
+  },
+
+  "MEASUREMENT_CAVEAT_bone_vs_sole": {
+   "issue": "The heel trace bottoms out at ~12 mm, never 0, and the toe sits flat at ~+5 mm.",
+   "explanation": "PROBABLY NOT A DEFECT. The traces follow named BONE vertices (most-posterior calcaneus, most-anterior toes). The calcaneus sits ABOVE the plantar surface - in a living foot that gap is heel pad and plantar soft tissue, which a skeleton does not have. A skeleton's calcaneus resting on the floor is anatomically wrong by exactly the thickness of the missing tissue.",
+   "action": "Do NOT chase the 12 mm to zero. Measure the calcaneus-to-sole and toe-to-sole offsets once, record them, and offset the floor datum for these traces - or state the offset on the plot. Otherwise it is a permanent phantom that will be re-investigated every time someone new looks at the chart.",
+   "consequence_for_MTC": "The 10-20 mm minimum toe clearance target is a SOLE-to-ground measurement. If the toe trace is a bone vertex sitting ~5 mm above the sole, the target band for THAT TRACE is 15-25 mm, not 10-20. Worth confirming before declaring clearance fixed."
+  }
+ },
+
+ "G05_mtp_toe_flexion": {
+  "_comment": "ADDED v0.5. THE FORFOOT ROCKER - the third rocker, which we do not currently have. Found by the user on first viewing of the v0.4 video after four rounds of numbers missed it. mtp_angle_r/l ship LOCKED at 0 in Rajagopal2015, so the foot is a rigid plate and pivots about the toe tip instead of rolling over the metatarsal heads.",
+
+  "model_state_as_shipped": {
+   "joint": "mtp_r / mtp_l (PinJoint, parent calcn, child toes)",
+   "locked": true,
+   "default_value": 0,
+   "range_rad": [-0.52359878, 0.52359878],
+   "range_deg": [-30.0, 30.0],
+   "note": "Joint and geometry BOTH already exist. No graft, no donor, no mesh separation needed."
+  },
+
+  "⚠️_do_not_repeat_the_total_rom_error": {
+   "the_trap": "The literature quotes MTP dorsiflexion figures of 45-60 deg ('required for a normal gait cycle') and 60-90 deg (assisted/passive). NEITHER is a measured walking peak. They are CAPACITY - what the joint must be able to do - not what it does.",
+   "why_it_matters": "Driving the curve to 60 deg because the literature says 60 is exactly the mistake that produced the toe-walk: total_rom_walking was an aggregate and got used as a control point. A capacity is not a trajectory.",
+   "the_rule_again": "Capacity sets the LIMIT. Measurement sets the CURVE. Never swap them."
+  },
+
+  "driven_curve_deg": {
+   "_comment": "scaling: none. Dorsiflexion positive (toes up) - VERIFY SIGN AGAINST THE RIG, mtp is on the L01 landmine list.",
+   "at_initial_contact_0pct": 0.0,
+   "foot_flat_10_40pct": 0.0,
+   "onset_at_pct": 40.0,
+   "peak_deg": 39.0, "peak_range": [38.0, 40.0],
+   "peak_at_pct_of_cycle": 57.0, "peak_at_pct_uncertain": true,
+   "at_toe_off_60pct": 35.0,
+   "swing_60_100pct": 0.0,
+   "scaling": "none",
+   "source": "https://www.frontiersin.org/journals/bioengineering-and-biotechnology/articles/10.3389/fbioe.2014.00073/full",
+   "confidence": "medium for MAGNITUDE, low for PHASE",
+   "shape": "Flat at 0 through foot-flat. Progressive dorsiflexion from heel-off (~40%) through terminal stance and pre-swing as the heel rises. Peak late in stance, near but slightly before toe-off. Returns to ~0 during swing.",
+   "⚠️_phase_conflict_declared": "Sources disagree on peak phase. One reports peak at '72% of the STANCE phase' (= ~43% of the CYCLE, i.e. immediately after heel-off); the qualitative descriptions place progressive dorsiflexion running through terminal stance to toe-off (~60%). I have taken the later peak (57%) because it matches the mechanism - the toes cannot be maximally extended while the heel is still coming up - but this is NOT settled. Flagged rather than resolved. AddBiomechanics 101-point data settles it.",
+   "tier_2_CANNOT_fill_this": "CLOSED 2026-07-27. The local generative model is a 31-point body with NO TOE ARTICULATION, so there is no toe DOF to extract and anchor-and-extend has no purchase here. 57.0 STANDS at confidence: low until AddBiomechanics supersedes it. Do not fill it from the generator."
+  },
+
+  "rom_limit_deg": {
+   "shipped": 30.0,
+   "proposed_working_limit": 50.0,
+   "basis": "45-60 deg is the commonly quoted requirement for a normal gait cycle; 60-90 deg is assisted/passive capacity.",
+   "source": "https://www.physio-pedia.com/Hallux_Rigidus",
+   "⚠️_DECLARED_DEVIATION": "The reference's own +30 deg CANNOT reach the measured 38-40 deg walking peak. Widening the range is a deviation from the single donor. Permitted under the geometry/ROM coherence split - geometry coherence is CRITICAL, ROM coherence is FORGIVING - but it MUST be recorded, not silently changed.",
+   "apply_where": "At BUILD time from this spec. Do NOT edit reference-model/Rajagopal2015.osim - that file is the authentic SimTK download and its value is that it is unmodified."
+  },
+
+  "not_modelled_declare_it": {
+   "windlass_mechanism": "MTP dorsiflexion tightens the plantar aponeurosis around the metatarsal heads, stiffening the longitudinal arch. We do not model it, so the toe joint will behave as a FREE hinge rather than a loaded one. Acceptable at T1; declare it.",
+   "per_digit": "One mtp coordinate drives all toes as a unit. Real feet dorsiflex the hallux more than the lesser digits. T1 simplification."
+  }
+ },
+
+ "validation_outputs": {
+  "_comment": "ADDED v0.2. These are OUTPUTS to check the derived walk against - NOT inputs. Driving them directly would be exactly the LIFT 0.09 mistake again.",
+  "minimum_toe_clearance_mm": {
+   "value": 15.0, "range": [10.0, 20.0],
+   "occurs_at_pct_of_cycle": 80.0, "occurs_range_pct": [75.0, 85.0],
+   "scaling": "leg_length",
+   "source": "https://www.nature.com/articles/s41598-017-02189-y",
+   "confidence": "high",
+   "note": "MTC nadir sits at or very close to mid-swing. It is SMALL - 1 to 2 cm - which is why healthy people still trip on kerbs. Foot velocity at this instant is high (~4.6 m/s) so the margin is genuinely thin. A derived walk landing in 10-20 mm is CORRECT; one landing at 90 mm is not more safely clear, it is wrong."
+  },
+  "pelvis_vertical_excursion_mm": {
+   "value": 50.0, "scaling": "leg_length",
+   "source": "https://musculoskeletalkey.com/assessment-of-gait/",
+   "confidence": "medium",
+   "note": "The classic figure: centre of gravity traces a figure-eight inside a 5 cm square. PB's derived 61.6 mm is ~23% high - INVESTIGATE, not FAIL. Likely the missing pelvic list (contralateral drop ~5 deg), one of the six determinants that exists specifically to REDUCE vertical excursion. Absent it, the walk pogos."
+  },
+  "ankle_total_rom_walking_deg": {
+   "value": 35.0, "range": [20.0, 40.0], "scaling": "none",
+   "source": "https://podiapaedia.org/wiki/biomechanics/gait/angular-kinematics-of-gait/",
+   "confidence": "medium",
+   "DEMOTED_IN_v0.4": "Was an input in v0.1-v0.3 and caused the toe-walk. It is a CHECK: sum peak dorsiflexion (+10) and peak plantarflexion (-25) from the driven curve and confirm the total lands inside [20, 40]. 35 is the value implied by the sourced endpoints. Never drive from it."
+  },
+  "stride_length_over_leg_length": {
+   "value": 1.60, "range": [1.50, 1.70], "scaling": "leg_length",
+   "source": "https://musculoskeletalkey.com/assessment-of-gait/",
+   "confidence": "low",
+   "note": "Derived from stride ~144 cm at typical adult leg length, NOT read directly from a normalised table - hence low confidence. PB's derived 1.616 sits inside this band, so stride is currently the healthiest of the three checks. Supersede with a properly leg-length-normalised value from AddBiomechanics."
+  }
+ },
+
+ "speed_calibration": {
+  "_comment": "ADDED v0.3. This is what makes the derived speed MEANINGFUL rather than merely self-consistent. Until now 1.2385 m/s only agreed with its own angles; nothing said whether that is a normal walk for a 1.669 m skeleton.",
+
+  "froude_convention": {
+   "USE": "Fr = v^2 / (g * L)",
+   "L": "LEG LENGTH (not stature), g = 9.81",
+   "WARNING": "There are TWO Froude conventions in the literature - v^2/(gL) and v/sqrt(gL) - and the published landmarks below are in the v^2/(gL) form. MOVEMENT.md quotes v/sqrt(gL); that is the same physics but the landmark NUMBERS ARE THE SQUARE ROOT. Mixing them silently makes a slow walk look like a sprint. Always record which form a number is in.",
+   "equivalent_landmarks_in_sqrt_form": {"preferred_walk": 0.5, "walk_run_transition": 0.707}
+  },
+
+  "landmarks": {
+   "preferred_walking_speed_froude": {
+    "value": 0.25, "scaling": "dimensionless",
+    "source": "https://www.cs.cmu.edu/~hgeyer/Teaching/R16-899B/Papers/KramEA97JEB.pdf",
+    "confidence": "high",
+    "note": "Optimal/self-selected walking sits near Fr 0.25 across species with very different limb geometry - which is exactly why it is the right cross-body normalisation."
+   },
+   "walk_run_transition_froude": {
+    "value": 0.5, "scaling": "dimensionless",
+    "source": "https://journals.biologists.com/jeb/article/217/18/3200/12423/The-preferred-walk-to-run-transition-speed-in",
+    "confidence": "high",
+    "note": "Bipeds with different leg lengths switch to running at different ABSOLUTE speeds but the same Froude number - and this holds under reduced gravity too. Above Fr 0.5 a walking gait is no longer the right model."
+   }
+  },
+
+  "skelator_check": {
+   "STATUS": "PROVISIONAL - recompute with the model's ACTUAL leg length before trusting the numbers.",
+   "leg_length_assumed_m": 0.884,
+   "leg_length_basis": "0.53 * stature (1.669 m) - a population ratio, NOT measured off the model. PB already has the true L (it is the denominator of stride/leg = 1.625), so substitute it.",
+   "derived_speed_m_s": 1.2385,
+   "froude_v2_over_gL": 0.177,
+   "froude_v_over_sqrt_gL": 0.421,
+   "verdict": "WALK CONFIRMED, on the slow side of preferred. Fr 0.177 against a preferred 0.25 puts the derived walk at about 84% of self-selected speed, and less than half the 0.5 transition. It is unambiguously in the walking regime.",
+   "independent_cross_checks": {
+    "_comment": "Three quantities computed from DIFFERENT parts of the derivation, agreeing. This is external corroboration, not a restatement.",
+    "froude": "0.177 vs 0.25 preferred = 84% (speed ratio sqrt(0.177/0.25))",
+    "absolute_speed": "1.2385 vs ~1.47 m/s preferred at this leg length = 84%",
+    "cadence": "stride 1.436 m / 1.2385 m/s = 1.16 s stride -> ~103 steps/min vs ~110 typical = 94%",
+    "reading": "All three say the same thing: the walk is roughly 10-15% slow. Consistent, not defective. A slow-normal walk is a legitimate walk."
+   }
+  },
+
+  "the_speed_fixed_point": {
+   "issue": "The sheet's values describe NORMAL SELF-SELECTED walking, but the walk derived from them comes out at ~84% of self-selected. Stance fraction rises as speed falls, so at 0.84x preferred the true stance_pct is nearer 61-62% than 60%.",
+   "resolution": "NO ACTION. 61-62% lies inside the sheet's own stated range [60.0, 62.0], so the loop has converged within tolerance. Note that PB's original guessed DUTY 0.62 was in fact about right for the speed this model actually walks at - it was unsourced, not wrong.",
+   "but_declare_it": "This is a FIXED-POINT problem, not a lookup: the values determine the speed, and the correct values depend on the speed. It is benign at one speed point. It stops being benign the moment the sheet is parameterised by speed, which is the next roadmap item."
+  }
+ },
+
+ "NOT_YET_SOURCED": {
+  "_comment": "Deliberately empty rather than guessed. These are the remaining gaps - do NOT invent them. v0.2 CLEARED three of these into validation_outputs; what remains is genuinely absent. movement_db.get() must keep raising NotSourced on everything here.",
+  "cadence_steps_per_min": {"value": null, "scaling": "dimensionless"},
+  "_cleared_in_v0.3": "walking_speed_dimensionless_froude moved to speed_calibration - SOURCED. The derived speed is now calibrated, not merely self-consistent.",
+  "pelvic_list_deg": {
+   "value": null, "scaling": "none",
+   "magnitude_indicated": 4.0, "magnitude_range": [4.0, 5.0],
+   "source_indicative_only": "https://wikimsk.org/wiki/Gait",
+   "STILL_NULL_BECAUSE": "Only teaching-material sources, no primary dataset. Do NOT code it. AddBiomechanics supplies pelvis_list directly as a driver coordinate - take it from there.",
+   "SIGN_CORRECTION": {
+    "claim_to_reject": "That pelvic list would close BOTH the clearance gap and the pelvis-excursion overshoot - 'two independent discrepancies, one candidate'.",
+    "why_it_is_wrong": "The sign is inverted on clearance. The pelvis drops on the SWING side during contralateral single-limb support. That LOWERS the swing hip, so it REDUCES toe clearance - it does not lift the swing foot. The literature is explicit: with the hip dropped on the swing side, the limb must flex the knee and dorsiflex the foot MORE to clear the toe. Pelvic list is the reason swing knee flexion has to be as large as it is, not a substitute for it.",
+    "net_effect_if_added": "pelvis excursion 60.9 -> ~50 mm (IMPROVES, as expected - reducing vertical displacement is its function). Toe clearance -13.2 -> roughly -23 mm (WORSENS by ~10 mm).",
+    "lesson": "An elegant single explanation for two residuals is seductive and was worth proposing - but it had to be checked against the mechanism, not just the magnitudes. Both numbers were the right ORDER, which is what made it plausible; only one had the right DIRECTION."
+   }
+  },
+  "swing_knee_extension_timing": {
+   "value": null, "scaling": "dimensionless",
+   "note": "NEW SUSPECT for the remaining clearance gap, and it is now ~38 mm not 28 mm once the pelvic-list sign is corrected. Evidence: the measured clearance nadir is at ~86% of cycle, but the sourced nadir is 75-85% ('at or very close to mid-swing'). A nadir that arrives LATE means the leg is lengthening too early - the knee is extending out of its 65 deg peak faster than it should, so the foot bottoms out in terminal swing instead of mid-swing. The nadir PHASE is itself a diagnostic, independent of the nadir DEPTH. Needs the 101-point knee curve; do not hand-tune it."
+  },
+  "double_support_toe_burial": {
+   "value": null, "scaling": "none",
+   "note": "PB's separately-reported -44.8 mm at ~50-60%: during double support the pelvis is anchored to one foot while the other's still-plantarflexed toe is driven through the floor. This is a TWO-LEG CONSISTENCY problem, not a clearance one - the two limbs' FK are not being reconciled during the interval when both constrain the pelvis. It needs a solver change, not a sourced value, and no number in this sheet will fix it."
+  },
+  "_cleared_in_v0.4": "loading_response_and_heel_off_phases moved to stance_phase_resolution - SOURCED as the three rockers. NOTE: the v0.3 entry claimed stance shape was 'less critical than swing shape because the floor is doing the constraining'. That was WRONG and the plot disproved it. The floor constrains where the foot IS, so an under-dorsiflexed ankle is not corrected by the floor - it lifts the heel instead. Stance shape is MORE exposed than swing, not less.",
+  "foot_soft_tissue_offsets_mm": {
+   "value": null, "scaling": "leg_length",
+   "note": "Calcaneus-to-sole and toe-to-sole distances, needed to reconcile bone-vertex traces against sole-referenced targets like the 10-20 mm MTC band. This is geometry WE OWN - measure it off the model, do not source it."
+  }
+ },
+
+ "how_to_use": {
+  "1": "Read these instead of hardcoding. gait.py should load this file the way rig code loads unity_rig_spec.json.",
+  "2": "Apply the scaling law per field. Never scale an angle. Never scale a length by stature.",
+  "3": "DO NOT prescribe walking speed. Derive it from forward kinematics of the stance leg (see MOVEMENT.md). Stride length falls out; a wrong stride means the angles are wrong.",
+  "4": "Check every angle's SIGN against the rig's own conventions before applying - the model has documented sign surprises (L01 mtp, L03 lumbar handedness, L09 pelvis_tilt).",
+  "5": "Treat the NOT_YET_SOURCED block as absent, not as zero."
+ },
+
+ "next_refinement": "Full 101-point joint-angle trajectories from the AddBiomechanics Rajagopal-retargeted snapshot (with-arms), which needs NO coordinate conversion - see MOVEMENT.md. That upgrades these event-point values into continuous curves."
+}

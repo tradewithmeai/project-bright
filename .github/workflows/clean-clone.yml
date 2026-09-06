@@ -1,0 +1,54 @@
+# The clean-clone contract: a fresh checkout installs from the lockfile, type-checks,
+# lints clean, and renders the zero-key HelloWorld.
+#
+# Runs on windows-latest because Windows is the only platform this repo claims (see
+# README "Requirements"). Every measurement in the repo was taken on Windows 11, so CI
+# guards the claim that is actually made rather than one that is not.
+#
+# `npm run hello` asserts on the artefact -- file size and ffprobe frame count -- not on
+# the exit code. It needs network on first run to fetch Remotion's headless browser.
+
+name: clean-clone
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hello:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/claude-remotion
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/claude-remotion/package-lock.json
+
+      - name: Install from the lockfile
+        run: npm ci
+
+      - name: Type check and lint
+        run: npm run lint
+
+      - name: Check the registered-composition contract
+        run: npm run check:compositions
+
+      - name: Check committed media is used, documented and present
+        run: npm run check:assets
+
+      - name: Prove the install renders
+        run: npm run hello
+
+      # The static contract above proves what Root.tsx REGISTERS. This proves what Remotion
+      # actually RESOLVES, which is a different claim: a composition whose calculateMetadata
+      # throws takes the whole listing down while Root.tsx still looks healthy. Both must agree.
+      - name: Confirm Remotion resolves the same eleven
+        run: node scripts/ci-resolved-compositions.mjs

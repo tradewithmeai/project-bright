@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+
+# Remotion Lab render outputs
+remotion_lab/renders/
+
+# Exported slot assets for Video Bright bridge
+exports/
+
+# Per-day generated story images (like public/vo) — regenerated each run
+public/images/

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Project Bright — code-driven video studio for Claude Code + Remotion</title>
+<meta name="description" content="Ask Claude Code for a video and it builds the production in code. A complete video-production environment on React and Remotion: animation, footage editing, graphics, timing, audio and rendering, all from editable code.">
+<link rel="canonical" href="https://tradewithmeai.github.io/project-bright/">
+<meta name="theme-color" content="#0a0c10">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%275%27 fill=%27%230a0c10%27/%3E%3Cpath d=%27M12 3.4l2.2 5.6 5.6 2.2-5.6 2.2L12 19l-2.2-5.6L4.2 11.2l5.6-2.2z%27 fill=%27%23ffb020%27/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Bright">
+<meta property="og:title" content="Project Bright — ask Claude for a video, it builds the production in code">
+<meta property="og:description" content="A complete video-production environment for Claude Code, built on React and Remotion. Describe what you want in the terminal; Claude writes the animation, edits the footage, builds the graphics and renders it.">
+<meta property="og:url" content="https://tradewithmeai.github.io/project-bright/">
+<meta property="og:image" content="https://tradewithmeai.github.io/project-bright/assets/yt-socials.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="Thumbnail for the Socials Studio promotional video, built with Project Bright.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Project Bright — ask Claude for a video, it builds the production in code">
+<meta name="twitter:description" content="A complete video-production environment for Claude Code, built on React and Remotion. Every frame produced from editable code.">
+<meta name="twitter:image" content="https://tradewithmeai.github.io/project-bright/assets/yt-socials.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Project Bright",
+  "description": "A complete video-production environment for Claude Code, built on React and Remotion. Describe a video in the terminal and Claude writes the animation, edits the footage, builds the graphics, handles timing and audio, and renders it. Every frame is produced from editable code.",
+  "applicationCategory": "MultimediaApplication",
+  "applicationSubCategory": "Video production",
+  "operatingSystem": "Windows",
+  "softwareVersion": "0.1.0-beta.1",
+  "codeRepository": "https://github.com/tradewithmeai/project-bright",
+  "url": "https://tradewithmeai.github.io/project-bright/",
+  "license": "https://opensource.org/licenses/MIT",
+  "programmingLanguage": ["TypeScript", "JavaScript"],
+  "runtimePlatform": "Node.js 22",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+  "author": { "@type": "Organization", "name": "solvX", "url": "https://solvx.uk/" }
+}
+</script>
+
+<style>
+/* ── Tokens ────────────────────────────────────────────────────────────────
+   Dark-committed by design: this is a tool that renders video, and the frames
+   in the gallery are dark. A light theme would fight them. */
+:root{
+  --ink:#0a0c10;
+  --ink-2:#0e1117;
+  --surface:#141821;
+  --surface-2:#1b202b;
+  --line:#252b38;
+  --line-2:#333b4c;
+  --text:#e9edf4;
+  --muted:#98a3b6;
+  --muted-2:#7b8799;
+  --amber:#ffb020;
+  --amber-soft:#ffc85c;
+  --amber-dim:rgba(255,176,32,.12);
+  --cyan:#54d6e8;
+
+  --max:1120px;
+  --pad:clamp(20px,5vw,40px);
+  --r:14px;
+
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+
+a{color:var(--amber-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+/* scroll-margin keeps an anchor jump clear of the sticky header — without it #gallery landed
+   with its eyebrow hidden behind the bar. */
+section{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--line);scroll-margin-top:70px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;position:fixed;z-index:99;background:var(--amber);color:#000;padding:10px 16px;border-radius:8px;font-weight:700}
+
+/* ── Type scale ─────────────────────────────────────────────────────────── */
+h1,h2,h3{line-height:1.1;letter-spacing:-.025em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,6.2vw,4.1rem);font-weight:800}
+h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800}
+h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0 0 1.05em}
+.lede{font-size:clamp(1.06rem,1.9vw,1.28rem);color:var(--muted);max-width:62ch}
+.eyebrow{
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--amber);margin:0 0 20px;font-weight:600;
+}
+.sec-intro{color:var(--muted);max-width:64ch;margin-top:14px}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.top{border-bottom:1px solid var(--line);background:rgba(10,12,16,.85);position:sticky;top:0;z-index:20;backdrop-filter:blur(8px)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.brand:hover{text-decoration:none}
+.spark{width:22px;height:22px;flex:0 0 auto}
+.top nav{display:flex;gap:clamp(12px,2.4vw,26px);flex-wrap:wrap;font-size:.93rem}
+.top nav a{color:var(--muted)}
+.top nav a:hover{color:var(--text)}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.hero{border-top:0;padding-top:clamp(38px,6vw,72px);position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-40% 0 auto 0;height:560px;pointer-events:none;
+  background:radial-gradient(ellipse 62% 58% at 22% 42%,rgba(255,176,32,.10),transparent 68%),
+             radial-gradient(ellipse 48% 50% at 82% 18%,rgba(84,214,232,.07),transparent 70%);
+}
+.hero .wrap{position:relative}
+.hero h1{max-width:15ch}
+.hero .lede{margin-top:22px}
+.hero-grid{display:grid;gap:clamp(30px,4vw,52px);align-items:center}
+@media (min-width:1000px){
+  .hero-grid{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr)}
+  /* The grid column sets the measure here, so the 15ch cap (which is for the stacked layout)
+     comes off. The headline also steps down: at the full 4.1rem it broke onto four lines inside
+     a 500px column and pushed the buttons past the fold. */
+  .hero h1{max-width:none;font-size:clamp(2.2rem,3.85vw,3.1rem)}
+}
+.hero-shot{margin:0;border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.55)}
+.hero-shot figcaption{padding:12px 15px;background:var(--surface);border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:.76rem;color:var(--muted-2);letter-spacing:.03em}
+/* 16:9 box for the embed. aspect-ratio on the wrapper rather than a padding hack, and the iframe
+   fills it, so the player is responsive without a line of JavaScript. */
+.ratio{position:relative;aspect-ratio:16/9;background:var(--ink-2)}
+.ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 22px;border-radius:10px;font-weight:700;font-size:1rem;
+  border:1px solid transparent;
+}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--amber);color:#100b00}
+.btn-primary:hover{background:var(--amber-soft)}
+.btn-secondary{background:transparent;color:var(--text);border-color:var(--line-2)}
+.btn-secondary:hover{border-color:var(--muted);background:var(--surface)}
+.jump{color:var(--muted);font-size:.95rem}
+
+.meta{
+  margin-top:28px;font-family:var(--mono);font-size:.83rem;color:var(--muted-2);
+  letter-spacing:.02em;
+}
+.meta b{color:var(--muted);font-weight:600}
+
+/* ── Gallery ────────────────────────────────────────────────────────────── */
+/* Two-up at desktop. Four tiles in a three-column grid orphaned one on its own row, and the
+   thumbnails are the proof on this page — they deserve the size. */
+/* min() clamps the track floor to the container. Without it the 420px minimum is wider than a
+   390px phone viewport and the whole PAGE scrolls sideways. */
+.grid{display:grid;gap:22px;margin-top:34px;
+  grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
+figure{margin:0}
+
+/* ── Showcase tiles ─────────────────────────────────────────────────────────
+   A whole tile is one link. Everything inside is a span so the markup stays valid
+   inside an <a>, and the whole card is the target rather than a small "watch" link. */
+.tile{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;color:var(--text)}
+.tile:hover{text-decoration:none;border-color:var(--line-2);background:var(--surface-2)}
+.tile:hover .play{background:var(--amber);border-color:var(--amber)}
+.tile:hover .play::after{border-left-color:#100b00}
+.thumb{display:block;position:relative;line-height:0}
+.thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--ink-2)}
+.play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(10,12,16,.72);border:2px solid rgba(255,255,255,.85);
+  display:grid;place-items:center;
+}
+.play::after{
+  content:"";width:0;height:0;margin-left:4px;
+  border-top:11px solid transparent;border-bottom:11px solid transparent;
+  border-left:17px solid #fff;
+}
+.tile-body{display:block;padding:15px 17px 18px}
+.tile-kicker{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--amber)}
+.tile-title{display:block;font-size:1.14rem;font-weight:750;letter-spacing:-.015em;margin-top:6px}
+.tile-txt{display:block;margin-top:7px;font-size:.94rem;color:var(--muted);line-height:1.5}
+
+/* ── Cards ──────────────────────────────────────────────────────────────── */
+
+.pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.pill{
+  font-family:var(--mono);font-size:.82rem;padding:7px 13px;border-radius:999px;
+  border:1px solid var(--line-2);color:var(--muted);background:var(--surface)
+}
+.pill b{color:var(--text);font-weight:600}
+
+/* ── Steps ──────────────────────────────────────────────────────────────── */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:30px 0 0;display:grid;gap:14px}
+ol.steps li{
+  counter-increment:s;position:relative;padding-left:52px;color:var(--muted);
+}
+ol.steps li::before{
+  content:counter(s);position:absolute;left:0;top:1px;
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  background:var(--amber-dim);border:1px solid rgba(255,176,32,.34);
+  color:var(--amber);font-family:var(--mono);font-weight:700;font-size:.9rem;
+}
+ol.steps li b{color:var(--text);font-weight:650}
+
+pre{
+  margin:28px 0 0;padding:20px 22px;background:var(--ink-2);border:1px solid var(--line);
+  border-radius:var(--r);overflow-x:auto;font-family:var(--mono);font-size:.88rem;
+  line-height:1.85;color:var(--text);
+}
+pre .c{color:var(--muted-2)}
+code{font-family:var(--mono);font-size:.92em}
+p code,li code{background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--amber-soft)}
+
+/* ── Reasons / not-list ─────────────────────────────────────────────────── */
+.reasons{display:grid;gap:26px;margin-top:34px;
+  grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr))}
+.reason h3{color:var(--text);margin-bottom:7px}
+.reason p{margin:0;color:var(--muted);font-size:.95rem}
+
+
+
+/* ── Panel ──────────────────────────────────────────────────────────────── */
+.panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(22px,3.4vw,32px);margin-top:30px
+}
+.panel dl{margin:0;display:grid;gap:16px}
+.panel dt{font-weight:700;color:var(--text);font-size:.97rem}
+.panel dd{margin:3px 0 0;color:var(--muted);font-size:.94rem}
+
+/* ── Final CTA ──────────────────────────────────────────────────────────── */
+.final{text-align:center}
+.final .wrap{max-width:760px}
+.final .cta-row{justify-content:center}
+.final pre{text-align:left}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--line);padding-block:44px;color:var(--muted-2);font-size:.9rem}
+footer .cols{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between}
+footer h4{margin:0 0 10px;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;font-family:var(--mono)}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--text)}
+.colophon{margin-top:32px;padding-top:22px;border-top:1px solid var(--line);max-width:66ch}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  .top nav{display:none}
+  .btn{width:100%;justify-content:center}
+  .jump{width:100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#main">
+      <svg class="spark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 1.6l2.5 6.3 6.3 2.5-6.3 2.5L12 19.2l-2.5-6.3L3.2 10.4l6.3-2.5z" fill="#ffb020"/>
+        <circle cx="19.4" cy="4.6" r="1.7" fill="#54d6e8"/>
+      </svg>
+      Project&nbsp;Bright
+    </a>
+    <nav aria-label="Sections">
+      <a href="#gallery">Made with it</a>
+      <a href="#hood">Under the hood</a>
+      <a href="#how">How it works</a>
+      <a href="#why">Why code</a>
+      <a href="#beta">Beta</a>
+      <a href="https://github.com/tradewithmeai/project-bright">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+   <div>
+    <p class="eyebrow">Project Bright · Public beta</p>
+    <h1>Ask Project Bright for a video. Claude builds it in code.</h1>
+    <p class="lede">
+      Tell Project Bright what you want to make. Claude gives it everything it needs to build the
+      video properly.
+    </p>
+    <p class="lede">
+      Give it footage or assets if you have them, or start from nothing. Claude handles the
+      animation, editing, graphics, audio and timing in React and Remotion, then renders the result
+      and keeps iterating with you.
+    </p>
+    <p class="lede">
+      Because the production is built in code, it can be almost anything: adverts, promos,
+      explainers, motion graphics, social content, data-driven shows or something entirely new.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/tradewithmeai/project-bright">View on GitHub</a>
+      <a class="btn btn-secondary" href="#how">Get started</a>
+      <a class="jump" href="#gallery">See what it can make ↓</a>
+    </div>
+
+    <p class="meta">
+      <b>v0.1.0-beta.1</b> · MIT · Windows tested · Node 22 · React 19 + Remotion 4
+    </p>
+   </div>
+
+   <!-- HERO VIDEO — swap point.
+        This is the Socials Studio promo, standing in until the Project Bright promo exists.
+        When it does, change the embed id and the title below, and the <figcaption>. The Socials
+        promo also appears as a tile in the showcase, so the two are deliberately the same video
+        for now; swapping this one removes the duplication. -->
+   <figure class="hero-shot">
+     <div class="ratio">
+       <iframe
+         src="https://www.youtube-nocookie.com/embed/c7yJzrcxSYI?rel=0"
+         title="Claude Code Social Media Automation: YouTube, X, LinkedIn, Instagram &amp; Bluesky | Socials Studio"
+         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+         referrerpolicy="strict-origin-when-cross-origin"
+         allowfullscreen></iframe>
+     </div>
+     <figcaption>Socials Studio — built with Project Bright</figcaption>
+   </figure>
+  </div>
+</section>
+
+<!-- ══ MADE WITH IT ═════════════════════════════════════════════════════════ -->
+<section id="gallery">
+  <div class="wrap">
+    <p class="eyebrow">Made with Project Bright</p>
+    <h2>Four productions.</h2>
+    <p class="sec-intro">
+      A browser game advert, a software promo, a civic campaign and a product walkthrough — all
+      built the same way, by asking for them.
+    </p>
+
+    <div class="grid">
+
+      <a class="tile" href="https://youtu.be/eGTJfQ_eW7E">
+        <span class="thumb">
+          <img src="assets/yt-bangbop.jpg" width="1280" height="720" loading="lazy" decoding="async"
+               alt="Thumbnail for the BangBop Cars advert: a stylised browser driving game.">
+          <span class="play" aria-hidden="true"></span>
+        </span>
+        <span class="tile-body">
+          <span class="tile-kicker">Game promotion</span>
+          <span class="tile-title">BangBop Cars</span>
+          <span class="tile-txt">A 36-second advert for a browser driving game — gameplay footage
+            cut against motion graphics and a scored soundtrack.</span>
+        </span>
+      </a>
+
+      <a class="tile" href="https://youtu.be/i7zkuw9yQv0">
+        <span class="thumb">
+          <img src="assets/yt-splitfire.jpg" width="1280" height="720" loading="lazy" decoding="async"
+               alt="Thumbnail for the SPLITFIRE 30-second advert.">
+          <span class="play" aria-hidden="true"></span>
+        </span>
+        <span class="tile-body">
+          <span class="tile-kicker">Software promotion</span>
+          <span class="tile-title">SPLITFIRE</span>
+          <span class="tile-txt">A 30-second product advert, with the music composed to the cut so
+            the drop lands on an exact frame.</span>
+        </span>
+      </a>
+
+      <a class="tile" href="https://youtu.be/dNA2Cdx24a4">
+        <span class="thumb">
+          <img src="assets/yt-yourgov.jpg" width="1280" height="720" loading="lazy" decoding="async"
+               alt="Thumbnail for the YourGov film about how your MP votes.">
+          <span class="play" aria-hidden="true"></span>
+        </span>
+        <span class="tile-body">
+          <span class="tile-kicker">Civic communication</span>
+          <span class="tile-title">YourGov</span>
+          <span class="tile-txt">"Your finger can be a hero" — a campaign film explaining how to
+            see the way your MP actually votes.</span>
+        </span>
+      </a>
+
+      <a class="tile" href="https://youtu.be/c7yJzrcxSYI">
+        <span class="thumb">
+          <img src="assets/yt-socials.jpg" width="1280" height="720" loading="lazy" decoding="async"
+               alt="Thumbnail for the Socials Studio product film.">
+          <span class="play" aria-hidden="true"></span>
+        </span>
+        <span class="tile-body">
+          <span class="tile-kicker">Product walkthrough</span>
+          <span class="tile-title">Socials Studio</span>
+          <span class="tile-txt">A short walkthrough of a social-media automation tool — captured
+            screens, motion graphics and narration carrying a whole workflow.</span>
+        </span>
+      </a>
+
+    </div>
+
+    <p class="sec-intro" style="margin-top:26px">
+      All four are on <a href="https://youtube.com/@solvXuk">the solvX channel</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ══ UNDER THE HOOD ═══════════════════════════════════════════════════════ -->
+<section id="hood">
+  <div class="wrap">
+    <p class="eyebrow">What is under the hood</p>
+    <h2>A library of proven techniques, not a list of formats.</h2>
+    <p class="sec-intro">
+      Months of real production have built up working methods for footage, animation, motion
+      graphics, music, branding, explainers and social formats — the awkward parts, already solved
+      and already tested. Fifteen Claude Code skills ship with the repo, so what was learned
+      building the last video is loaded rather than rediscovered on the next one.
+    </p>
+    <p class="sec-intro">
+      Tell Claude what you want and it uses, combines or rewrites whatever it needs to build it.
+    </p>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══════════════════════════════════════════════════════ -->
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Clone it, prove it renders, then start describing what you want.</h2>
+
+    <ol class="steps">
+      <li><b>Clone it.</b> One repository, no services to stand up, nothing to deploy.</li>
+      <li><b>Prove the install.</b> <code>npm run hello</code> renders a real video and checks the
+        file it produced — not the exit code.</li>
+      <li><b>Open Claude Code</b> in the repository.</li>
+      <li><b>Tell Claude what you want to make.</b> In plain language, the way you would brief a
+        person.</li>
+      <li><b>Claude follows the Project Bright skills</b> and authors the Remotion composition —
+        the plan file, the timing, the assets, the checks.</li>
+      <li><b>Render, inspect and iterate.</b> Watch it. Change a number. Render again.</li>
+      <li><b>You decide when it is done.</b> Nothing publishes itself, and nothing is finished
+        because a script said so.</li>
+    </ol>
+
+    <pre><code><span class="c"># the first five commands</span>
+git clone https://github.com/tradewithmeai/project-bright.git
+cd project-bright/apps/claude-remotion
+npm install
+npm run hello   <span class="c"># renders the install proof and verifies the artefact</span>
+npm run dev     <span class="c"># opens Remotion Studio</span></code></pre>
+
+    <p class="sec-intro" style="margin-top:26px">
+      Claude Code is a separate product, is not included with this repository, and needs its own
+      subscription. It is how you use Project Bright: the skills are the interface the whole system
+      is built around, and without them you are writing the Remotion yourself. Codex would probably
+      work in its place — that is untested, so treat it as unsupported rather than as an option.
+    </p>
+  </div>
+</section>
+
+<!-- ══ WHY CODE ══════════════════════════════════════════════════════════ -->
+<section id="why">
+  <div class="wrap">
+    <p class="eyebrow">Why code?</p>
+    <h2>Because a video you can read is a video you can fix.</h2>
+
+    <div class="reasons">
+      <div class="reason">
+        <h3>Exact control over every frame</h3>
+        <p>Nothing is approximate. A caption appears on frame 214 because something says frame 214,
+          and you can change it to 208.</p>
+      </div>
+      <div class="reason">
+        <h3>Deterministic timing</h3>
+        <p>The same source produces the same frames. Motion is a function of the frame number, so a
+          re-render is not a re-roll.</p>
+      </div>
+      <div class="reason">
+        <h3>Real source control and diffs</h3>
+        <p>You can see exactly what changed between two versions of a video, review it, and revert
+          it. Not "the new one looks different".</p>
+      </div>
+      <div class="reason">
+        <h3>Editable, not opaque</h3>
+        <p>Generated output is something you accept or discard. A program is something you open and
+          edit at the line that is wrong.</p>
+      </div>
+      <div class="reason">
+        <h3>Failures turn into checks</h3>
+        <p>A defect found once becomes a validator, a skill or a comment that fails loudly next
+          time — instead of disappearing into a prompt nobody kept.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BETA ══════════════════════════════════════════════════════════════ -->
+<section id="beta">
+  <div class="wrap">
+    <p class="eyebrow">Public beta · v0.1.0-beta.1</p>
+    <h2>What you need, and what to expect.</h2>
+
+    <div class="panel">
+      <dl>
+        <dt>Windows 11, tested</dt>
+        <dd>Every measurement in the repository was taken on Windows 11. Nothing is known to be
+          broken elsewhere, but nothing has been tested elsewhere either — treat macOS and Linux as
+          unverified rather than supported.</dd>
+
+        <dt>Node 22</dt>
+        <dd><code>engines</code> declares <code>&gt;=22.0.0</code>. Developed and measured on
+          v22.17.1.</dd>
+
+        <dt>Claude Code, with a subscription</dt>
+        <dd>This is how you use Project Bright, and it is a separate product you supply yourself.
+          Codex would probably work in its place, but that is untested and unsupported.</dd>
+
+        <dt>Some optional workflows use paid APIs</dt>
+        <dd>Voice, music, images and script generation call paid services when you choose to use
+          them. None of that is needed to render what ships, and the voiceover path reserves
+          against a spend ceiling before each call.</dd>
+
+        <dt>Human review is load-bearing</dt>
+        <dd>The automated checks pre-filter; they do not approve. Somebody still has to watch the
+          video.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ═════════════════════════════════════════════════════════ -->
+<section class="final" id="get-started">
+  <div class="wrap">
+    <p class="eyebrow">Get started</p>
+    <h2>Clone Project Bright.</h2>
+    <p class="lede" style="margin-inline:auto">
+      One clone, one install, one command that proves it renders. Then open Claude Code and start
+      describing the video you want.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/tradewithmeai/project-bright">Clone Project Bright</a>
+      <a class="btn btn-secondary" href="https://github.com/tradewithmeai/project-bright#readme">Read the README</a>
+    </div>
+    <pre><code>git clone https://github.com/tradewithmeai/project-bright.git</code></pre>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="https://github.com/tradewithmeai/project-bright">Repository</a></li>
+          <li><a href="https://github.com/tradewithmeai/project-bright#readme">README</a></li>
+          <li><a href="https://github.com/tradewithmeai/project-bright/blob/main/LICENSE">MIT licence</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#gallery">Made with it</a></li>
+          <li><a href="#hood">Under the hood</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#beta">Beta and requirements</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>solvX</h4>
+        <ul>
+          <li><a href="https://solvx.uk/project-bright.html">Project Bright at solvX</a></li>
+          <li><a href="https://solvx.uk/">solvx.uk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="colophon">
+      Project Bright is built with React and Remotion and released under the MIT licence. This
+      page carries no JavaScript of its own and sets no cookies. The video at the top is served by
+      YouTube in privacy-enhanced mode; the four below it are still images that load nothing from
+      YouTube until you click them.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

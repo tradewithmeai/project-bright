@@ -1,0 +1,86 @@
+{
+  "anchor": [
+    {
+      "generated_voice_id": "ueoUm0SGY6JzfA2NsYmp",
+      "file": "studio/voices/previews/anchor_1.mp3"
+    },
+    {
+      "generated_voice_id": "ToQHiuVDhom073y3MQof",
+      "file": "studio/voices/previews/anchor_2.mp3"
+    },
+    {
+      "generated_voice_id": "IRVK5FZ2Nsj1lTq1l2xL",
+      "file": "studio/voices/previews/anchor_3.mp3"
+    }
+  ],
+  "commentator": [
+    {
+      "generated_voice_id": "IpAGjxX2tSXRVpX3PfB5",
+      "file": "studio/voices/previews/commentator_1.mp3"
+    },
+    {
+      "generated_voice_id": "LViCtcn18eqSs0H7aBms",
+      "file": "studio/voices/previews/commentator_2.mp3"
+    },
+    {
+      "generated_voice_id": "yjZ3NiR6nneutUf8V1n4",
+      "file": "studio/voices/previews/commentator_3.mp3"
+    }
+  ],
+  "hype": [
+    {
+      "generated_voice_id": "M2lnqpsNg9JlzvCrFr1w",
+      "file": "studio/voices/previews/hype_1.mp3"
+    },
+    {
+      "generated_voice_id": "hybGnk6vEkALzSSFxWqi",
+      "file": "studio/voices/previews/hype_2.mp3"
+    },
+    {
+      "generated_voice_id": "YtEYeLbjOWiyVgYupPGZ",
+      "file": "studio/voices/previews/hype_3.mp3"
+    }
+  ],
+  "anchor_us": [
+    {
+      "generated_voice_id": "BmDHU0wd66RpxE6lulgP",
+      "file": "studio/voices/previews/anchor_us_1.mp3"
+    },
+    {
+      "generated_voice_id": "nNEScHy0hu7SNtdCXamy",
+      "file": "studio/voices/previews/anchor_us_2.mp3"
+    },
+    {
+      "generated_voice_id": "cn4uXfvnuwkMWfvK45TB",
+      "file": "studio/voices/previews/anchor_us_3.mp3"
+    }
+  ],
+  "commentator_us": [
+    {
+      "generated_voice_id": "uHwja1audEgfI0H1418L",
+      "file": "studio/voices/previews/commentator_us_1.mp3"
+    },
+    {
+      "generated_voice_id": "lYAevFpWy5ELhdd7By9p",
+      "file": "studio/voices/previews/commentator_us_2.mp3"
+    },
+    {
+      "generated_voice_id": "G8oyCeGR4X4U9HlVqS3o",
+      "file": "studio/voices/previews/commentator_us_3.mp3"
+    }
+  ],
+  "countdown": [
+    {
+      "generated_voice_id": "ViIMS2Zf2oPTPhgK78cG",
+      "file": "studio/voices/previews/countdown_1.mp3"
+    },
+    {
+      "generated_voice_id": "DXwI1hpULOTLdagNQUTE",
+      "file": "studio/voices/previews/countdown_2.mp3"
+    },
+    {
+      "generated_voice_id": "j8RhegHB87srhcHyx3oV",
+      "file": "studio/voices/previews/countdown_3.mp3"
+    }
+  ]
+}

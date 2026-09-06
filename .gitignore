@@ -1,0 +1,76 @@
+# Secrets — never commit
+# Pattern-based, not filename-based: an enumerated list only covers the paths someone
+# thought of. These cover every .env anywhere in the tree, including backups, while
+# still allowing the checked-in templates.
+**/.env
+**/.env.*
+!**/.env.example
+**/.credentials.json
+claude-accounts*
+claude-credentials*
+
+# Agent working directories — may record where secrets live
+.agentwork/
+
+# Machine-local config — per-seat absolute paths
+.mcp.json
+.claude/settings.json
+**/.claude/settings.local.json
+**/.playwright-mcp/
+
+# Node
+**/node_modules/
+
+# Python
+**/__pycache__/
+**/*.pyc
+.venv/
+
+# Build and render output (regenerable, often large)
+apps/claude-remotion/out/
+apps/claude-remotion/build/
+apps/claude-remotion/exports/
+apps/claude-remotion/previews/
+apps/claude-remotion/public/*.mp4
+apps/video-reviewer/dist/
+/out/
+
+# Logs
+*.log
+
+# Generated data for the daily edition
+apps/claude-remotion/src/templates/ai_top5/data.json
+
+# Generated/derived media. These are rebuilt by the scripts that own them; committing
+# them means the repo carries megabytes whose provenance is a script run nobody recorded.
+apps/claude-remotion/public/brand-sting/
+apps/claude-remotion/public/narrative-arc/
+apps/claude-remotion/public/bridge/
+
+# Third-party and generated audio beds — see studio/ASSET_RECORDS.md for why anything
+# under public/ that ships needs a provenance record before it is committed.
+apps/claude-remotion/public/audio/*.mp3
+!apps/claude-remotion/public/audio/bed.mp3
+
+# Studio video library (studio/FILE_PROTOCOL.md) — finished videos are never committed
+studio/output/
+
+# Regenerable studio scraper / audit outputs
+studio/social/latest.json
+studio/audits/incoming/
+studio/brand-packs/*/capture/
+studio/brand-packs/*/report.md
+
+# Local caches
+.cce/
+.DS_Store
+
+# Release working documents. These are the owner's briefs and my reports back during the release
+# passes — process, not product. RELEASE_STATE.md and RELEASE_COMPOSITION_TRIAGE.md were kept
+# untracked from the start for exactly that reason; RELEASE_FIXES.md and RELEASE_FIXES_2.md were
+# committed before that convention existed and are untracked here to match.
+#
+# They never shipped: the payload build excludes /^RELEASE_[^/]*\.md$/ by pattern. But a
+# hand-maintained exclude list is a weaker guarantee than the file simply not being in the tree,
+# and the tree is about to be frozen for a clean public history.
+/RELEASE_*.md

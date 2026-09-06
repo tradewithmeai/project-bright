@@ -1,0 +1,11 @@
+# Studio: big media stays OUT of git; text metadata (record.md, analysis/*.json, brief/*, logs) is versioned.
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg

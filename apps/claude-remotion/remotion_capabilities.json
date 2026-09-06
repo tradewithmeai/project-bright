@@ -1,0 +1,232 @@
+{
+  "version": "0.2",
+  "updated_at": "2026-05-14",
+  "owner": "claude-remotion",
+  "purpose": "records the current reliable rendering capabilities available to Susan and the Susan-to-Remotion pipeline",
+  "formats": {
+    "standard_short_v1": {
+      "label": "Promo",
+      "duration_range": "30-45s",
+      "orientation": "landscape",
+      "slot_structure": "11-slot standard structure",
+      "best_for": [
+        "short promo",
+        "single core idea",
+        "quick CTA advert",
+        "social teaser"
+      ],
+      "supported_patterns": [
+        "logo_intro",
+        "logo_outro",
+        "simple_support_stills",
+        "short_chat_workflow",
+        "video_card_in_chat",
+        "cta_card"
+      ],
+      "recommended_assets": [
+        "logo",
+        "promo_link"
+      ],
+      "optional_assets": [
+        "repo_visual_context",
+        "brand_pack",
+        "screenshots"
+      ],
+      "known_limitations": [
+        "too short for detailed workflow demos",
+        "v2 must stay focused on one main idea"
+      ]
+    },
+    "standard_explainer_v1": {
+      "label": "Explainer",
+      "duration_range": "60-90s",
+      "orientation": "landscape",
+      "slot_structure": "same 11-slot standard structure as standard_short_v1, slower pacing",
+      "best_for": [
+        "product explainer",
+        "workflow walkthrough",
+        "app demo",
+        "information-led video",
+        "multi-step product explanation"
+      ],
+      "supported_patterns": [
+        "logo_intro",
+        "logo_outro",
+        "susan_chat_workflow",
+        "repo_context_ui_recreation",
+        "video_card_in_chat",
+        "summary_card",
+        "export_card",
+        "publish_controls",
+        "progress_bar",
+        "split_screen",
+        "typing_animation",
+        "cta_card"
+      ],
+      "recommended_assets": [
+        "logo",
+        "promo_link",
+        "repo_visual_context"
+      ],
+      "optional_assets": [
+        "brand_pack",
+        "screenshots",
+        "demo_route",
+        "uploaded_ui_references"
+      ],
+      "known_limitations": [
+        "no audio by default",
+        "repo screenshots are not automated yet",
+        "uses static repo inspection unless screenshots are supplied"
+      ]
+    }
+  },
+  "asset_resolution_priority": [
+    "user_uploaded_asset",
+    "repo_visual_context",
+    "brand_pack_or_scraped_asset",
+    "susan_inferred_palette",
+    "generated_wordmark_or_placeholder"
+  ],
+  "global_supported_patterns": [
+    "logo_intro",
+    "logo_outro",
+    "chat_workflow",
+    "susan_chat_workflow",
+    "video_card_in_chat",
+    "summary_card",
+    "export_card",
+    "publish_controls",
+    "progress_bar",
+    "typing_animation",
+    "split_screen",
+    "simple_support_still",
+    "cta_card"
+  ],
+  "global_limitations": [
+    "no audio in default pipeline",
+    "no live footage unless supplied",
+    "no automated Playwright screenshot capture yet",
+    "no brand-pack integration yet",
+    "no automatic repo modification",
+    "uploaded logo is currently the only fully implemented asset type from Susan"
+  ],
+  "handoff_rules": {
+    "susan_should_use_this_file_to": [
+      "offer only supported templates",
+      "ask for useful assets early",
+      "avoid promising unsupported effects",
+      "choose promo vs explainer constraints",
+      "prefer repo visual context when product accuracy matters"
+    ],
+    "remotion_should_use_this_file_to": [
+      "validate selected production_format",
+      "choose appropriate reusable patterns",
+      "report unsupported or partial requests",
+      "maintain consistency between renders"
+    ]
+  },
+  "slot_design_rules": {
+    "v2_main_content_clip": {
+      "authority": "Susan's slot plan is the source of truth. Susan's story_beat, visual_suggestion, animation_direction, and remotion_hint for v2 define what must appear on screen. Claude Remotion must not override these with generic patterns.",
+      "required_structure": "Exactly 3 structurally distinct phases. Each phase must be a separate Sequence block with its own layout, visual character, and inner useCurrentFrame() scope. The three phases must look and feel different from each other — they are not variations of the same card component.",
+      "phase_names": [
+        "setup_or_launch",
+        "action_or_interaction",
+        "result_or_outcome"
+      ],
+      "phase_descriptions": {
+        "setup_or_launch": "Establishes context: the product, brand environment, or starting state of the workflow.",
+        "action_or_interaction": "Shows the product in active use: a workflow step, a game moment, a simulation, an interaction. This phase must feel dynamic and specific to the product.",
+        "result_or_outcome": "Shows the payoff: output, achievement, score, generated result, or CTA bridge."
+      },
+      "product_simulation_requirement": "At least one phase must simulate the actual product interface, environment, or workflow using div-drawn mockups. Do not replace this with a decorative text panel or a bullet list. Accepted simulations: game HUD with score/health bars, phone outline with an app screen, terminal window with typed command and output, browser frame with a dashboard or form, chat interface with typing animation.",
+      "pattern_by_brand_type": {
+        "game": "Phase 1: garage or build or setup screen. Phase 2: arena or combat or gameplay HUD with active indicators. Phase 3: result or reward or leaderboard.",
+        "mobile_app": "Phase 1: phone mockup with app loading or splash. Phase 2: key feature interaction in progress. Phase 3: output or result state.",
+        "web_tool_or_saas": "Phase 1: browser frame or dashboard skeleton. Phase 2: core action in progress (form, query, generation). Phase 3: output or result displayed.",
+        "cli_or_dev_tool": "Phase 1: terminal window appears with prompt. Phase 2: command being typed with cursor blink. Phase 3: output lines appear with key result highlighted.",
+        "ai_product": "Phase 1: prompt or input interface. Phase 2: generation in progress (typing animation or progress bar). Phase 3: generated output displayed."
+      },
+      "canonical_example": "TrailMate V2: Phase 1 = phone outline slides in, app icon animates (product launch context). Phase 2 = scan-line sweeps over a map UI mockup (product in active use). Phase 3 = confidence score result card rises up (product output). Each phase has a completely different visual structure and layout."
+    }
+  },
+  "production_report": {
+    "schema_version": "1.1",
+    "path_in_job_dir": "production_report.json",
+    "full_path_pattern": "/app/exports/render-jobs/<job_id>/production_report.json",
+    "written_by": "Claude Stage 0 (generate-brand-components skill)",
+    "updated_by": "the retired render service after Stage 1 Remotion render",
+    "purpose": "Documents implementation fidelity vs Susan's slot plan, limitations encountered, fallbacks used, workaround reasoning, and upgrade suggestions. Non-blocking — missing or malformed report never fails the render.",
+    "top_level_fields": [
+      "schema_version", "job_id", "generated_at", "brand", "format",
+      "scene_spec_path", "github_repo", "website_url", "cta_link",
+      "overall (status, summary, plan_following_score_self_assessed)",
+      "human_review_needed",
+      "capabilities_used",
+      "missing_inputs",
+      "slots (per-slot: susan_story_beat, susan_visual, implementation_summary, status, deviation, fallback_used, upgrade_suggestion)",
+      "review_flags",
+      "quality_observations (slot, type, summary, severity)",
+      "workaround_intelligence (summary, workarounds_used[], should_update_susan, should_update_remotion_capabilities, suggested_capability_updates[])",
+      "system_upgrade_suggestions",
+      "render_results (added by the retired render service after Stage 1: slots_ok, slots_failed, export_dir, bridge_project_path)"
+    ],
+    "overall_status_values": ["full_success", "partial", "fallback_used", "failed_generation"],
+    "slot_status_values": ["implemented_as_planned", "partial", "deviated", "fallback_used"],
+    "quality_observation_severity_values": ["low", "medium", "high"],
+    "quality_observation_types": ["layout_issue", "corrupted_visual", "timing_issue", "weak_design", "strong_moment", "other"],
+    "quality_observation_notes": "severity must be exactly low|medium|high — no other values. For positive/strong moments use type=strong_moment with severity=low.",
+    "workaround_quality_impact_values": ["low", "medium", "high"],
+    "capabilities_used_valid_values": [
+      "repo_context", "logo_asset", "three_phase_v2", "mock_product_ui",
+      "animated_game_hud", "animated_cta", "static_code_inspection",
+      "logo_wordmark_fallback", "brand_pack_asset", "user_uploaded_video"
+    ],
+    "human_review_needed_when": [
+      "any slot status is partial, deviated, or fallback_used",
+      "any review_flags exist",
+      "repo context was skipped when github_repo was supplied",
+      "missing inputs affected the output",
+      "brand_color was not a valid hex value and palette defaulted"
+    ],
+    "brand_colour_check": "Before writing the report, inspect palette.ts and meta.brand_color. If brand_color is absent, prose, or palette.primary defaulted to #000000 or another fallback: add review_flag, add quality_observation (type=weak_design, severity=high), add system_upgrade_suggestion about separating visual_style from brand_color in Susan.",
+    "render_worker_behaviour": {
+      "after_stage_0": "Checks for production_report.json in jobDir. If present and valid JSON: logs overall.status, plan_following_score_self_assessed, review_flags count, and human_review_needed. Logs each flag individually. If present but malformed: logs warning. If missing: logs warning. All non-blocking.",
+      "after_stage_1": "If prodReportPath is set and file exists, parses it, appends render_results block (slots_ok, slots_failed, export_dir, bridge_project_path extracted from exportStdout), and re-writes the file. Non-blocking."
+    }
+  },
+  "antipatterns": [
+    {
+      "name": "n_cycling_cards",
+      "description": "A single card component (FeatureCard, BenefitCard, TestimonialCard, EmojiCard, StepCard, etc.) instantiated N times in a Sequence loop or as explicit repetitions with only text or emoji props varying. This produces a carousel or slideshow regardless of how the component is named.",
+      "detection": "The same JSX component structure appears 3 or more times in V2 with identical layout; only string or emoji props differ between instances.",
+      "forbidden_in": ["v2"],
+      "required_instead": "3 structurally distinct phases per slot_design_rules.v2_main_content_clip"
+    },
+    {
+      "name": "feature_card_carousel",
+      "description": "V2 used as a list of product features, each rendered as a uniform card. Common forms: FeatureCard, PillCard, BenefitCard, StepCard with sequential Sequences and different text.",
+      "forbidden_in": ["v2"],
+      "required_instead": "Product workflow simulation with 3 structurally distinct phase layouts"
+    },
+    {
+      "name": "bullet_list_slide",
+      "description": "A still-style text layout used inside a video slot. Plain text items staggered in with no structural scene change between them.",
+      "forbidden_in": ["v2"],
+      "required_instead": "Visual scene changes between phases; at least one phase must be a product UI simulation"
+    },
+    {
+      "name": "visual_description_as_body_text",
+      "description": "Rendering slot.visual_suggestion or slot.subtext verbatim as on-screen body copy. These fields are production briefs written for Claude, not text intended for the viewer.",
+      "forbidden_in": ["s1","s2","s3","s4","s5","s6","s7","s8","v1","v2","v3"],
+      "required_instead": "Only render slot.headline as primary text. Render slot.subtext only if it is clearly brand copy (tagline, handle, supporting statement) — never if it starts with 'An animated', contains 'depicting', 'showing a', or describes a visual."
+    },
+    {
+      "name": "solid_white_background",
+      "description": "A still slot with background #FFFFFF or near-white with no gradient or decorative element. Compresses below the 50 KB PNG floor.",
+      "forbidden_in": ["s1","s2","s3","s4","s5","s6","s7","s8"],
+      "required_instead": "Use a gradient or add decorative elements so the compressed PNG stays above 50 KB"
+    }
+  ]
+}

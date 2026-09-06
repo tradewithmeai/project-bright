@@ -1,0 +1,108 @@
+{
+  "_notes": "Studio voice registry — the single source of truth for every voice project-bright videos use. `game` = voices OWNED by the 4-player-shooter game (designed there via elevenlabs-voice; reference/reuse only, do NOT redesign). `studio` = voices owned by the studio for its recurring roles (presenters, adverts, countdown). Design workflow per studio voice: text-to-voice/design -> audition previews -> owner picks -> text-to-voice (save permanent voice_id) -> fill it in here + tune default_settings. Videos should read voice_id + settings from HERE, not hard-code.",
+  "game": {
+    "host":    { "voice_id": "tCxuAWJPduRaaFimFEE3", "label": "THE HOST / ANNOUNCER", "desc": "Deadpan corporate announcer, British RP, soulless PA delivering bad news politely.", "used_by": ["splitfire advert", "splitfire in-game"] },
+    "cipher":  { "voice_id": "6k9lBfAiNw3wKuy3kL22", "label": "Cipher — corporate saboteur", "desc": "Cool, precise, sardonic male, mid-Atlantic." },
+    "warden":  { "voice_id": "n7KrRcEv3VAF4k1Uw8va", "label": "Warden — ex-security", "desc": "Gruff, gravelly, American ex-military." },
+    "helix":   { "voice_id": "20ecnob4sm3zW2tJBnD0", "label": "Helix — rogue scientist", "desc": "Manic cheerful British scientist." },
+    "null":    { "voice_id": "spyciyOrOPEWDBplxYVm", "label": "Null" },
+    "copy6":   { "voice_id": "ULNjIrtQsASPrTmxsVCX", "label": "Copy6" },
+    "parcel":  { "voice_id": "8vrlITPHeVOmSHM6Vrw0", "label": "Parcel" },
+    "static":  { "voice_id": "OTvfFmONFBW06sYHYVuA", "label": "Static" },
+    "gearbox": { "voice_id": "cm8V87CLEka4uapeOIH4", "label": "Gearbox" }
+  },
+  "studio": {
+    "anchor": {
+      "voice_id": "ueoUm0SGY6JzfA2NsYmp",
+      "label": "The Anchor (British)",
+      "role": "channel presenter / face; owned version of BangBop 'George' — the composed presenter who secretly loves the chaos. Also live-stream presenter.",
+      "accent": "British RP",
+      "voice_description": "A composed British male broadcast anchor, mid-40s, warm authoritative RP with a resonant, trustworthy timbre and a dry wit held just beneath a polished professional surface — a serious presenter who is secretly thrilled by carnage but keeps it buttoned up. Measured pace, clear diction.",
+      "sample_text": "Good evening, and welcome back to the arena. Tonight's leaderboard has a brand new name at the very top — and, between you and me, I did not see that coming.",
+      "default_settings": { "stability": 0.66, "similarity_boost": 0.85, "style": 0.08, "speed": 1.0 }
+    },
+    "commentator": {
+      "voice_id": "IpAGjxX2tSXRVpX3PfB5",
+      "label": "The Colour Commentator (British)",
+      "role": "co-host / comic foil; owned version of BangBop 'Lily' — sweet-sounding, casually bloodthirsty. Carries hype + leaderboard banter.",
+      "accent": "British",
+      "voice_description": "A bright, sweet-sounding British female co-host, late 20s, cheerful and warm with a lovely lilt — but with a casual, gleeful bloodthirst lurking just under the sweetness. Playful, quick, delighted by mayhem, as if describing tea and murder in the same breath.",
+      "sample_text": "Ooh, lovely — she's just taken out three of them with homing missiles. Isn't that nice? Oh, and there she goes again. Bless her.",
+      "default_settings": { "stability": 0.58, "similarity_boost": 0.8, "style": 0.16, "speed": 1.0 }
+    },
+    "hype": {
+      "voice_id": "hybGnk6vEkALzSSFxWqi",
+      "voice_id_spare": "YtEYeLbjOWiyVgYupPGZ",
+      "label": "The Hype Caster",
+      "role": "high-energy esports caster for drops / big plays / stingers.",
+      "accent": "neutral / transatlantic",
+      "voice_description": "A high-energy hype announcer, explosive and punchy with a gravelly excited edge — the voice of the drop and the big play. Fast, loud, thrilling, breathless esports-caster energy that lifts on the money moments.",
+      "sample_text": "OH! Are you KIDDING me right now?! Triple kill on the grid — off the ramp, into the missiles — this is exactly why you watch BangBop!",
+      "default_settings": { "stability": 0.4, "similarity_boost": 0.8, "style": 0.5, "speed": 1.06 }
+    },
+    "anchor_us": {
+      "voice_id": "nNEScHy0hu7SNtdCXamy",
+      "label": "The Anchor — US spare",
+      "role": "American alternate anchor/narrator for variety.",
+      "accent": "neutral American",
+      "voice_description": "A polished American male broadcast anchor, warm baritone, network-news authority with easy charm and a hint of dry humour. Neutral American accent, confident, smooth, reassuring.",
+      "sample_text": "Good evening, and welcome back to the arena. Tonight's leaderboard has a brand new name at the very top — and, between you and me, I did not see that coming.",
+      "default_settings": { "stability": 0.62, "similarity_boost": 0.85, "style": 0.12, "speed": 1.0 }
+    },
+    "commentator_us": {
+      "voice_id": "uHwja1audEgfI0H1418L",
+      "label": "The Commentator — US spare",
+      "role": "American alternate commentator/hype for variety.",
+      "accent": "neutral American",
+      "voice_description": "An upbeat American female sports commentator, late 20s to 30s, energetic and personable, quick and warm with real delight in the action. Neutral American accent, bright and punchy.",
+      "sample_text": "Ooh, would you look at that — three of them, gone, homing missiles across the board! And she's lining up for another. I love this game.",
+      "default_settings": { "stability": 0.5, "similarity_boost": 0.8, "style": 0.35, "speed": 1.02 }
+    },
+    "countdown": {
+      "voice_id": "ViIMS2Zf2oPTPhgK78cG",
+      "voice_id_spare": "j8RhegHB87srhcHyx3oV",
+      "label": "The Countdown (AI Top 5 style)",
+      "role": "SUPERSEDED 2026-07-24 for the AI Top 5 — use `ai_top5_presenter` instead (owner auditioned a purpose-built pacey set and picked cand1). Kept as a general owned countdown/presenter voice for other work.",
+      "accent": "warm / neutral",
+      "voice_description": "A bright, energetic, friendly presenter for a fast daily news countdown — upbeat radio-DJ warmth, clear and punchy, keeps momentum and never drags. Enthusiastic Top-of-the-Pops host energy, playful but credible.",
+      "sample_text": "And today, we've got the five biggest A.I. stories — counted down, just for you. Coming in at number five, it's a big one. Let's get into it!",
+      "default_settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.35, "speed": 1.0 }
+    },
+    "_ai_top5_presenter_notes": "OWNED 2026-07-24 (commit 10a2d5d): presenter voices designed + minted permanent for the AI Top 5 pace upgrade (owner: 'it is supposed to be a top 5 so it should have pace'). Six were minted; owner auditioned and ruled 2026-07-24: cand1 = PRIMARY presenter, cand4 = BACKUP presenter, cand5 + cand6 = keep as studio spares for other work, cand2 + cand3 = DELETED from the account ('not fit for human ears') — they are GONE and cannot be recovered or reproduced, do NOT try to reference them. Account 22/30 slots. Auditions: studio/voices/auditions/presenter-20260724T180946Z/ (untracked binaries).",
+    "ai_top5_presenter": {
+      "voice_id": "A3nBTBAB8rBisGBAy50l",
+      "label": "AI Top 5 Presenter (PRIMARY)",
+      "role": "THE presenter for the daily AI Top 5 countdown — owner's pick 2026-07-24. Replaces OpenAI 'nova' in scripts/generate-vo.mjs.",
+      "accent": "British",
+      "voice_description": "A fast-paced, high-energy British male countdown presenter, late 20s to 30s — Radio 1 breakfast-show DJ energy: bright, punchy, upbeat and quick, riding the momentum of a Top-5 chart rundown. Crisp, clear diction that stays razor-sharp even at speed, warm and playful but credible, with lift on the big reveals. Never drags.",
+      "sample_text": "This is your A.I. Top Five. Coming in at number three — Flux 3, video generation with audio. And finally, the big one!",
+      "default_settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.35, "use_speaker_boost": true, "speed": 1.08 }
+    },
+    "ai_top5_presenter_backup": {
+      "voice_id": "E4TMh3CJkWOtRYFT6pIZ",
+      "label": "AI Top 5 Presenter (BACKUP)",
+      "role": "backup/alternate presenter for the AI Top 5 — owner's pick 2026-07-24. Punchiest of the set; use if the primary needs relief or an episode wants max energy.",
+      "accent": "neutral American",
+      "voice_description": "A punchy, explosive American male announcer for a fast Top-5 countdown — sports-highlight-reel and hype-caster energy, but crisp and clear rather than shouty. Fast, loud, thrilling, driving momentum with sharp diction and clean articulation even at high speed. Neutral American accent, confident, exciting, big lift on number one.",
+      "sample_text": "This is your A.I. Top Five. Coming in at number three — Flux 3, video generation with audio. And finally, the big one!",
+      "default_settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.35, "use_speaker_boost": true, "speed": 1.08 }
+    },
+    "spare_british_male_youtuber": {
+      "voice_id": "XCFx1faDYJeWX2FDC9TX",
+      "label": "Studio Spare — British Male (Tech YouTuber)",
+      "role": "UNASSIGNED spare, kept by owner 2026-07-24 'for something else'. Young modern tech-native read — a candidate for explainers / build-in-public / dev-facing content.",
+      "accent": "British",
+      "voice_description": "A quick, energetic younger British male tech-YouTuber presenter, early-to-mid 20s — fast-talking, upbeat and enthusiastic with modern, casual energy and a bright grin in the voice. Rapid but ultra-clear diction that stays crisp at pace, playful and hooky, momentum-driven. Never flat, never dragging.",
+      "default_settings": { "stability": 0.45, "similarity_boost": 0.75, "style": 0.35, "use_speaker_boost": true, "speed": 1.05 }
+    },
+    "spare_us_female_radiodj": {
+      "voice_id": "KnHP72vBmM7PGuOMPKqi",
+      "label": "Studio Spare — US Female (Radio DJ)",
+      "role": "UNASSIGNED spare, kept by owner 2026-07-24 'for something else'. Owner note: SHRILL as first generated — settings below are de-shrilled (stability UP, style DOWN, speed push removed). ElevenLabs has no pitch/EQ control, so stability+style ARE the shrillness levers; do not re-raise style for this voice.",
+      "accent": "neutral American",
+      "voice_description": "A warm, energetic American female radio-DJ presenter, 30s — upbeat morning-drive-show warmth, punchy and quick with an infectious smile in the voice. Bright, momentum-driven delivery with clean, crisp articulation, enthusiastic and friendly but polished and credible.",
+      "default_settings": { "stability": 0.62, "similarity_boost": 0.75, "style": 0.15, "use_speaker_boost": true, "speed": 1.02 },
+      "_softening": "Default above = the MODERATE de-shrill. A STRONGER option (stability 0.78, similarity_boost 0.70, style 0.03, use_speaker_boost false, speed 1.0) is auditioned at auditions/presenter-20260724T180946Z/cand6-softened/02_softened_strong.mp3 — swap it in if the owner wants her softer still."
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "_note": "Third-party brand marks committed for the AI Top 5 story-background logo tier. resolveLogo() maps a story's entities[] to one of these; a name with no entry resolves to null and the background falls back to a plain gradient. ONLY marks a shipped edition actually renders are listed. This was eleven entries: ten of them were speculative, downloaded to every clone against the chance that a future edition might name that company, and rendered by nothing. Simple Icons publishes the FILES under CC0, but a company trademark is not CC0 and is not covered by this repository's MIT licence, so shipping marks on the off-chance is a cost with no benefit. Add one back only when an edition displays it; scripts/vendor-logos.mjs fetches it.",
+  "logos": {
+    "meta": {
+      "file": "logos/si/meta.svg",
+      "hex": "#0467DF",
+      "source": "simple-icons@16.25.0 CC0"
+    }
+  },
+  "aliases": {
+    "metaplatforms": "meta",
+    "facebook": "meta"
+  }
+}
