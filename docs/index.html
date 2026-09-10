@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Project Bright — code-driven video studio for Claude Code + Remotion</title>
-<meta name="description" content="Ask Claude Code for a video and it builds the production in code. A complete video-production environment on React and Remotion: animation, footage editing, graphics, timing, audio and rendering, all from editable code.">
+<title>Project Bright — open-source agentic video production for Claude Code</title>
+<meta name="description" content="Project Bright is an open-source agentic video production studio for Claude Code. Describe a video and Claude builds the production itself in React + Remotion — footage, animation, motion graphics, typography, audio and timing — then renders it as code you can still edit.">
 <link rel="canonical" href="https://tradewithmeai.github.io/project-bright/">
 <meta name="theme-color" content="#0a0c10">
 <meta name="color-scheme" content="dark">
@@ -13,8 +13,8 @@
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Project Bright">
-<meta property="og:title" content="Project Bright — ask Claude for a video, it builds the production in code">
-<meta property="og:description" content="A complete video-production environment for Claude Code, built on React and Remotion. Describe what you want in the terminal; Claude writes the animation, edits the footage, builds the graphics and renders it.">
+<meta property="og:title" content="Project Bright — open-source agentic video production, built in code">
+<meta property="og:description" content="An open-source agentic video production studio for Claude Code. Describe the video; Claude operates the studio and builds the production in React + Remotion — code-driven video you can open, change and rerender.">
 <meta property="og:url" content="https://tradewithmeai.github.io/project-bright/">
 <meta property="og:image" content="https://tradewithmeai.github.io/project-bright/assets/yt-socials.jpg">
 <meta property="og:image:width" content="1280">
@@ -22,8 +22,8 @@
 <meta property="og:image:alt" content="Thumbnail for the Socials Studio promotional video, built with Project Bright.">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Project Bright — ask Claude for a video, it builds the production in code">
-<meta name="twitter:description" content="A complete video-production environment for Claude Code, built on React and Remotion. Every frame produced from editable code.">
+<meta name="twitter:title" content="Project Bright — open-source agentic video production, built in code">
+<meta name="twitter:description" content="Open-source agentic video production for Claude Code. Describe a video; Project Bright builds and renders it in React + Remotion code you can still edit.">
 <meta name="twitter:image" content="https://tradewithmeai.github.io/project-bright/assets/yt-socials.jpg">
 
 <script type="application/ld+json">
@@ -31,9 +31,9 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Project Bright",
-  "description": "A complete video-production environment for Claude Code, built on React and Remotion. Describe a video in the terminal and Claude writes the animation, edits the footage, builds the graphics, handles timing and audio, and renders it. Every frame is produced from editable code.",
+  "description": "Project Bright is an open-source agentic video production studio for Claude Code. Describe a video and the coding agent operates the studio, building the production in React + Remotion: footage editing, animation, motion graphics, typography, audio and timing. The result is code-driven video you can open, change and rerender.",
   "applicationCategory": "MultimediaApplication",
-  "applicationSubCategory": "Video production",
+  "applicationSubCategory": "Agentic video production",
   "operatingSystem": "Windows",
   "softwareVersion": "0.1.0-beta.1",
   "codeRepository": "https://github.com/tradewithmeai/project-bright",
@@ -122,7 +122,7 @@ p{margin:0 0 1.05em}
 .top nav a:hover{color:var(--text)}
 
 /* ── Hero ───────────────────────────────────────────────────────────────── */
-.hero{border-top:0;padding-top:clamp(38px,6vw,72px);position:relative;overflow:hidden}
+.hero{border-top:0;padding-top:clamp(22px,3.4vw,44px);position:relative;overflow:hidden}
 .hero::before{
   content:"";position:absolute;inset:-40% 0 auto 0;height:560px;pointer-events:none;
   background:radial-gradient(ellipse 62% 58% at 22% 42%,rgba(255,176,32,.10),transparent 68%),
@@ -130,14 +130,17 @@ p{margin:0 0 1.05em}
 }
 .hero .wrap{position:relative}
 .hero h1{max-width:15ch}
-.hero .lede{margin-top:22px}
+.hero .lede{margin-top:16px}
+/* The hero carries three paragraphs plus two new lines above the h1. Tightening the
+   paragraph gap here (not globally) keeps the CTA row as high as it was before. */
+.hero .lede{margin-bottom:.72em}
 .hero-grid{display:grid;gap:clamp(30px,4vw,52px);align-items:center}
 @media (min-width:1000px){
   .hero-grid{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr)}
   /* The grid column sets the measure here, so the 15ch cap (which is for the stacked layout)
      comes off. The headline also steps down: at the full 4.1rem it broke onto four lines inside
      a 500px column and pushed the buttons past the fold. */
-  .hero h1{max-width:none;font-size:clamp(2.2rem,3.85vw,3.1rem)}
+  .hero h1{max-width:none;font-size:clamp(2.1rem,3.6vw,2.92rem)}
 }
 .hero-shot{margin:0;border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;
   box-shadow:0 30px 70px rgba(0,0,0,.55)}
@@ -148,7 +151,7 @@ p{margin:0 0 1.05em}
 .ratio{position:relative;aspect-ratio:16/9;background:var(--ink-2)}
 .ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;align-items:center}
 .btn{
   display:inline-flex;align-items:center;gap:9px;
   padding:13px 22px;border-radius:10px;font-weight:700;font-size:1rem;
@@ -166,6 +169,32 @@ p{margin:0 0 1.05em}
   letter-spacing:.02em;
 }
 .meta b{color:var(--muted);font-weight:600}
+
+/* ── Launch additions ───────────────────────────────────────────────────────
+   .hook sits above the h1 as the first line read. .category states the
+   product category in one phrase directly under it. Both are deliberately
+   compact: this hero already fills the first screen, and two more full-size
+   lines would push the CTAs under the fold. */
+.hook{
+  font-family:var(--mono);font-size:clamp(.9rem,1.45vw,1rem);font-weight:600;
+  color:var(--amber-soft);margin:0 0 12px;letter-spacing:.01em;
+}
+.category{
+  font-size:clamp(1rem,1.65vw,1.14rem);font-weight:700;color:var(--text);
+  margin:12px 0 0;letter-spacing:-.01em;text-wrap:balance;
+}
+/* The star CTA is a third action, so it reads as a link rather than a third
+   button — the primary/secondary hierarchy stays obvious. */
+.star-link{display:inline-flex;align-items:center;gap:7px;color:var(--muted);
+  font-size:.95rem;font-weight:600}
+.star-link:hover{color:var(--amber-soft)}
+.gh-mark{width:16px;height:16px;flex:0 0 auto}
+/* Outranks `.top nav a` on specificity (0,0,2,2 vs 0,0,1,2) — no !important. */
+.top nav a.nav-gh{
+  display:inline-flex;align-items:center;gap:7px;color:var(--text);
+  border:1px solid var(--line-2);border-radius:8px;padding:5px 11px;
+}
+.top nav a.nav-gh:hover{border-color:var(--muted);background:var(--surface);text-decoration:none}
 
 /* ── Gallery ────────────────────────────────────────────────────────────── */
 /* Two-up at desktop. Four tiles in a three-column grid orphaned one on its own row, and the
@@ -268,8 +297,15 @@ footer a:hover{color:var(--text)}
 
 @media (max-width:560px){
   body{font-size:16px}
-  .top nav{display:none}
+  /* The section links go, but the repository must never be hard to find — so the nav stays
+     and only its GitHub button survives. Hiding the whole nav here also hid that link. */
+  .top nav{gap:0}
+  .top nav a{display:none}
+  .top nav a.nav-gh{display:inline-flex}
   .btn{width:100%;justify-content:center}
+  /* The star action is a link, not a .btn, so it needs its own full-width centring or it
+     sits jammed against the stacked buttons above it. */
+  .star-link{width:100%;justify-content:center;padding-top:4px}
   .jump{width:100%;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){
@@ -296,7 +332,7 @@ footer a:hover{color:var(--text)}
       <a href="#how">How it works</a>
       <a href="#why">Why code</a>
       <a href="#beta">Beta</a>
-      <a href="https://github.com/tradewithmeai/project-bright">GitHub</a>
+      <a class="nav-gh" href="https://github.com/tradewithmeai/project-bright"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.14.46.55.38A7.99 7.99 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>GitHub</a>
     </nav>
   </div>
 </header>
@@ -308,7 +344,9 @@ footer a:hover{color:var(--text)}
   <div class="wrap hero-grid">
    <div>
     <p class="eyebrow">Project Bright · Public beta</p>
+    <p class="hook">You've seen OpenMontage. Now try Project Bright.</p>
     <h1>Ask Project Bright for a video. Claude builds it in code.</h1>
+    <p class="category">Open-source agentic video production, built in code.</p>
     <p class="lede">
       Tell Project Bright what you want to make. Claude gives it everything it needs to build the
       video properly.
@@ -324,8 +362,9 @@ footer a:hover{color:var(--text)}
     </p>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/tradewithmeai/project-bright">View on GitHub</a>
-      <a class="btn btn-secondary" href="#how">Get started</a>
+      <a class="btn btn-primary" href="#get-started">Try Project Bright</a>
+      <a class="btn btn-secondary" href="https://github.com/tradewithmeai/project-bright">View on GitHub</a>
+      <a class="star-link" href="https://github.com/tradewithmeai/project-bright"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.14.46.55.38A7.99 7.99 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> Star on GitHub</a>
       <a class="jump" href="#gallery">See what it can make ↓</a>
     </div>
 
@@ -430,6 +469,35 @@ footer a:hover{color:var(--text)}
 </section>
 
 <!-- ══ UNDER THE HOOD ═══════════════════════════════════════════════════════ -->
+<!-- ══ THE CATEGORY / OPENMONTAGE ════════════════════════════════════════ -->
+<section id="category">
+  <div class="wrap">
+    <p class="eyebrow">The category</p>
+    <h2>Open-source agentic video production.</h2>
+    <p class="sec-intro">
+      <a href="https://github.com/calesthio/OpenMontage">OpenMontage</a> was first to publicly
+      establish open-source agentic video production as a category, and its success showed just how
+      much interest there is in the idea. Project Bright was being developed independently at almost
+      the same time — its earliest predecessor dates from April 2026 — and the system has since been
+      pushed through months of real production work.
+    </p>
+    <p class="sec-intro">
+      Both projects solve broadly the same problem in broadly the same way: an AI coding agent
+      operating a programmable production environment. Project Bright takes that core idea and keeps
+      pushing it outward. Today it gives Claude a code-driven video production studio with
+      accumulated production skills and tooling for footage, animation, graphics, typography, audio,
+      timing, rendering and review.
+    </p>
+    <p class="sec-intro">
+      The production itself remains editable React + Remotion code.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-secondary" href="#get-started">Try Project Bright</a>
+      <a class="star-link" href="https://github.com/tradewithmeai/project-bright"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.14.46.55.38A7.99 7.99 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
 <section id="hood">
   <div class="wrap">
     <p class="eyebrow">What is under the hood</p>

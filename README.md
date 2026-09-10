@@ -1,14 +1,75 @@
 # Project Bright
 
+**You've seen [OpenMontage](https://github.com/calesthio/OpenMontage). Now try Project Bright.**
+
+**Open-source agentic video production, built in code.**
+
+[![Website](https://img.shields.io/badge/website-project--bright-ffb020?style=flat-square)](https://tradewithmeai.github.io/project-bright/)
+[![clean-clone CI](https://img.shields.io/github/actions/workflow/status/tradewithmeai/project-bright/clean-clone.yml?branch=main&label=clean-clone&style=flat-square)](https://github.com/tradewithmeai/project-bright/actions/workflows/clean-clone.yml)
+[![Public beta](https://img.shields.io/badge/public%20beta-v0.1.0--beta.1-4c8eda?style=flat-square)](https://github.com/tradewithmeai/project-bright/releases)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-3fa46a?style=flat-square)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-required-d97757?style=flat-square)](https://claude.com/claude-code)
+[![React 19](https://img.shields.io/badge/React-19-61dafb?style=flat-square)](https://react.dev)
+[![Remotion 4](https://img.shields.io/badge/Remotion-4.0.521-0b84f3?style=flat-square)](https://remotion.dev)
+
+**[Website](https://tradewithmeai.github.io/project-bright/)** · **[What it can make](https://tradewithmeai.github.io/project-bright/#gallery)** · **[Try it](#try-it)**
+
 A video studio where the videos are **programs**.
 
-**You tell Claude Code what video you want.** Claude uses this repository's skills and production
-environment to build it in React + [Remotion](https://remotion.dev) — writing the animation, editing
-the footage, using assets from the repo, handling graphics, typography, timing and audio, rendering
-the result and iterating with you.
+Tell Project Bright what video you want. Claude Code operates the studio and builds the production
+itself in React + [Remotion](https://remotion.dev) — editing footage, creating animation and motion
+graphics, handling typography, graphics, audio and timing, rendering the result and iterating with
+you.
 
-What comes back is not a file you have to accept. Every frame is drawn by code you can open, read
-and change, and the system measures its own output before a human is asked to watch it.
+The result is not a black-box video you have to accept. The production is code you can open,
+inspect, change, rerender and keep building.
+
+### For example
+
+> **You:** *"Make me a 45-second product launch video from these clips."*
+
+Project Bright takes that brief and whatever assets you have, builds the production, renders it,
+inspects the result and iterates with you. There is no prompt syntax to learn and no template to
+choose — it is an ordinary sentence, and a vaguer or a much more specific one works just as well.
+
+## Try it
+
+```bash
+git clone https://github.com/tradewithmeai/project-bright.git
+cd project-bright
+cd apps/claude-remotion
+npm install
+npm run hello
+```
+
+`npm run hello` needs no API key and no assets you have to go and find. It renders a real
+composition and then checks the file it produced, so a pass means the install genuinely works.
+
+Then **open Claude Code at the repository root and ask Project Bright to make a video, in plain
+language.** You do not need to know the codebase to start, and you do not pick anything from a list.
+
+Requirements, the spend guards and the longer walk-through are below under
+[Requirements](#requirements) and [Day one](#day-one).
+
+If you want to see where this goes, **[star the repo](https://github.com/tradewithmeai/project-bright)**. It helps other people find the beta.
+
+## Project Bright and OpenMontage
+
+OpenMontage was first to publicly establish open-source agentic video production as a category, and
+its success showed just how much interest there is in the idea.
+
+Project Bright was being developed independently at almost the same time. Its earliest predecessor
+dates from April 2026, and the system has since been pushed through months of real production work.
+
+The two solve broadly the same problem in broadly the same way: an AI coding agent operates a
+programmable production environment. That shared idea is the substance of both projects, not a
+difference to argue over.
+
+Project Bright takes that core idea and keeps pushing it outward. Today it gives Claude a code-driven
+video production studio with accumulated production skills and tooling for footage, animation,
+graphics, typography, audio, timing, rendering and review.
+
+The production itself remains editable React + Remotion code.
 
 ## How it differs from a text-to-video model
 
@@ -32,6 +93,31 @@ last one finished.
   on its own.
 - **It does not hide the code.** The production is a program in the repository. If you never want
   that to be true, this is the wrong tool.
+
+## Where this is going
+
+Video is the first part of the studio, not the intended boundary.
+
+**None of the following ships in v0.1.0-beta.1.** This section is the direction of travel rather
+than a capability list: every item is planned or exploratory, and no dates are attached to any of
+it. What exists today is the video studio described above — that is what you get when you clone this
+repository.
+
+Planned work:
+
+- a **Blender bridge** and a **Unity bridge**, so the same agent can drive 3D scenes and engine content
+- broader **animation workflows**, with sequencing and editing of animation clips as first-class material
+- **image-to-3D** model generation
+- **animation and motion dataset** integration
+- **unified skeleton and animation protocols**, so rigs and clips stay portable between tools
+- **local automatic rigging**, operated through Claude Code
+- **multi-device motion capture**
+
+The long-term direction, in one line:
+
+```
+image -> 3D model -> rig -> animation -> scene -> finished video or game asset
+```
 
 ## Requirements
 
@@ -57,11 +143,7 @@ last one finished.
 
 ## Day one
 
-```bash
-cd apps/claude-remotion
-npm install
-npm run hello
-```
+The quick start above is the whole install. Here is what it proves and what comes after it.
 
 `npm run hello` renders a 150-frame composition that uses no API key, no assets from `public/`, no
 web font and no audio — so the only thing it can prove is whether your install works. It then checks
