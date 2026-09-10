@@ -171,17 +171,12 @@ p{margin:0 0 1.05em}
 .meta b{color:var(--muted);font-weight:600}
 
 /* ── Launch additions ───────────────────────────────────────────────────────
-   .hook sits above the h1 as the first line read. .category states the
-   product category in one phrase directly under it. Both are deliberately
-   compact: this hero already fills the first screen, and two more full-size
-   lines would push the CTAs under the fold. */
+   .hook sits above the h1 as the first line read. It is deliberately compact:
+   this hero already fills the first screen, and a full-size line here would
+   push the CTAs under the fold. */
 .hook{
   font-family:var(--mono);font-size:clamp(.9rem,1.45vw,1rem);font-weight:600;
   color:var(--amber-soft);margin:0 0 12px;letter-spacing:.01em;
-}
-.category{
-  font-size:clamp(1rem,1.65vw,1.14rem);font-weight:700;color:var(--text);
-  margin:12px 0 0;letter-spacing:-.01em;text-wrap:balance;
 }
 /* The star CTA is a third action, so it reads as a link rather than a third
    button — the primary/secondary hierarchy stays obvious. */
@@ -346,7 +341,6 @@ footer a:hover{color:var(--text)}
     <p class="eyebrow">Project Bright · Public beta</p>
     <p class="hook">You've seen OpenMontage. Now try Project Bright.</p>
     <h1>Ask Project Bright for a video. Claude builds it in code.</h1>
-    <p class="category">Open-source agentic video production, built in code.</p>
     <p class="lede">
       Tell Project Bright what you want to make. Claude gives it everything it needs to build the
       video properly.
